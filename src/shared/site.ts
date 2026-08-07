@@ -1,4 +1,5 @@
 import glycobarLogo from '../assets/brand/glycobar-logo.png'
+import glycobarLogoReversed from '../assets/brand/glycobar-logo-reversed.png'
 import france2030Logo from '../assets/partners/france-2030.svg'
 import { arrowIcon } from './icons'
 
@@ -12,7 +13,8 @@ export const siteHeader = (page: SitePage) => `
   <header class="site-header" data-header>
     <div class="nav-shell">
       <a class="brand" href="${page === 'home' ? '#top' : '/'}" aria-label="GlycoBAR — home">
-        <img src="${glycobarLogo}" alt="GlycoBAR" />
+        <img class="brand-logo brand-logo-reversed" src="${glycobarLogoReversed}" alt="" aria-hidden="true" />
+        <img class="brand-logo" src="${glycobarLogo}" alt="GlycoBAR" />
       </a>
 
       <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="main-navigation" data-menu-toggle>

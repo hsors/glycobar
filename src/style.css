@@ -161,26 +161,35 @@ h3 {
   align-items: center;
 }
 
+/* the lockup rides straight on the page — no plaque. Over the dark hero it
+   swaps to the reversed artwork, and crossfades back to the full-colour one
+   when the header turns white on scroll */
 .brand {
-  width: 66px;
-  height: 66px;
-  border: 1px solid rgba(197, 153, 107, 0.22);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: rgba(250, 246, 241, 0.94);
-  transition: background 220ms ease, border-color 220ms ease;
-}
-
-.brand img {
+  position: relative;
   width: 54px;
-  height: auto;
+  flex: none;
+  display: block;
 }
 
-.site-header.is-scrolled .brand {
-  border-color: transparent;
-  background: transparent;
+.brand-logo {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 220ms ease;
+}
+
+.brand-logo-reversed {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.site-header:not(.is-scrolled) .brand-logo:not(.brand-logo-reversed) {
+  opacity: 0;
+}
+
+.site-header.is-scrolled .brand-logo-reversed {
+  opacity: 0;
 }
 
 .main-nav {
@@ -2513,12 +2522,7 @@ h3 {
   }
 
   .brand {
-    width: 60px;
-    height: 58px;
-  }
-
-  .brand img {
-    width: 50px;
+    width: 46px;
   }
 
   .menu-toggle {
