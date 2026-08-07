@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-ssr
+.git
+.gitea
+.github
+*.log
+.env
+.env.*
+!.env.example
+.vscode
+.idea
+.DS_Store
+*.zip

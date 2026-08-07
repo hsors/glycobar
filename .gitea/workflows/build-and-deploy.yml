@@ -1,0 +1,138 @@
+name: build-and-deploy
+
+# Builds the web image directly on the prod host and restarts the stack. No
+# registry involved — the runner's docker socket IS the host's docker daemon
+# (mounted in via /var/run/docker.sock), so an image built inside the runner
+# job is immediately available to the host.
+#
+# The runner also has /home/edwins/xyz/server bind-mounted at the same path
+# inside the container, so docker compose paths resolved by the CLI line up
+# with what the host daemon sees.
+#
+# Required Gitea repo configuration (Settings → Actions → Secrets):
+#
+#   secrets.GLYCOBAR_SECRET   full contents of the production .env file
+#                             (must include DOMAIN=glycobar.ironhandscapital.com).
+#                             See .env.example for the expected contents.
+
+on:
+  push:
+    branches:
+      - main
+      - "feat/**"
+      - "release/**"
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+
+    # catthehacker's image bundles docker CLI, compose v2, rsync, node, etc.
+    # Same image used by the other app pipelines on this host so the runner
+    # caches it across projects.
+    container:
+      image: ghcr.io/catthehacker/ubuntu:act-latest
+
+    env:
+      COMPOSE_PROJECT_NAME: glycobar
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check Docker availability
+        run: |
+          docker version
+          docker compose version
+
+      - name: Install rsync
+        run: |
+          if ! command -v rsync >/dev/null 2>&1; then
+            apt-get update
+            apt-get install -y --no-install-recommends rsync
+          fi
+
+      - name: Sync source to deploy directory
+        env:
+          DEPLOY_DIR: /home/edwins/xyz/server/glycobar-app
+        run: |
+          # Hard-coded path guard — refuse to operate on anything other than the
+          # glycobar deploy directory. Defends against accidental edits to this
+          # workflow that would point rsync --delete elsewhere.
+          case "$DEPLOY_DIR" in
+            /home/edwins/xyz/server/glycobar-app) ;;
+            *) echo "ERROR: DEPLOY_DIR must be the glycobar app directory, got: $DEPLOY_DIR" >&2; exit 1 ;;
+          esac
+
+          mkdir -p "$DEPLOY_DIR"
+
+          # Sentinel file — proves the directory is managed by this workflow. On
+          # first ever deploy, the dir must be empty (or only contain things the
+          # rsync would preserve via --exclude); otherwise we abort to protect
+          # any files a human placed there manually. After the first successful
+          # deploy the sentinel exists and subsequent runs proceed.
+          SENTINEL="$DEPLOY_DIR/.glycobar-deploy-marker"
+          if [ ! -f "$SENTINEL" ]; then
+            unexpected="$(ls -A "$DEPLOY_DIR" 2>/dev/null | grep -vxE '\.env|data|\.git|node_modules' || true)"
+            if [ -n "$unexpected" ]; then
+              echo "ERROR: $DEPLOY_DIR contains unexpected files and no deploy marker:" >&2
+              echo "$unexpected" >&2
+              echo "" >&2
+              echo "Move anything important off the server, then create the marker:" >&2
+              echo "  touch $SENTINEL" >&2
+              exit 1
+            fi
+            touch "$SENTINEL"
+          fi
+
+          rsync -a --delete \
+            --exclude=.env \
+            --exclude=data \
+            --exclude=.git \
+            --exclude=node_modules \
+            --exclude=.glycobar-deploy-marker \
+            ./ "$DEPLOY_DIR/"
+
+      - name: Write production .env on host
+        env:
+          ENV_FILE: ${{ secrets.GLYCOBAR_SECRET }}
+        run: |
+          test -n "$ENV_FILE" || { echo "Missing Actions secret: GLYCOBAR_SECRET" >&2; exit 1; }
+          printf '%s' "$ENV_FILE" > /home/edwins/xyz/server/glycobar-app/.env
+          chmod 600 /home/edwins/xyz/server/glycobar-app/.env
+
+      - name: Build and restart stack
+        working-directory: /home/edwins/xyz/server/glycobar-app
+        run: |
+          # --build rebuilds the image, --force-recreate guarantees the container
+          # restarts even when only .env changed (Compose tracks the env_file:
+          # directive, not the file's content) or when a BuildKit cache hit
+          # produced the same image ID.
+          docker compose -f docker-compose.yml up -d --build --force-recreate --remove-orphans
+
+      - name: Reclaim disk space (scoped to glycobar)
+        run: |
+          # Only prune dangling images carrying our project label — set on the
+          # build in docker-compose.yml. Other projects on this host are NOT
+          # affected.
+          docker image prune -f --filter "label=project=glycobar"
+
+          # Stopped containers from this compose project only.
+          docker container prune -f --filter "label=com.docker.compose.project=glycobar"
+
+          # NOTE: BuildKit cache is shared across all projects on this host, so
+          # we do NOT prune it here. Run `docker builder prune --keep-storage 10GB`
+          # manually if disk pressure shows up in `docker system df`.
+
+          docker system df
+
+      - name: Show stack status
+        if: always()
+        working-directory: /home/edwins/xyz/server/glycobar-app
+        run: |
+          docker compose -f docker-compose.yml ps
+          echo "---"
+          docker compose -f docker-compose.yml logs --tail=50 || true

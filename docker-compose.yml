@@ -1,0 +1,74 @@
+# Production Compose for the GlycoBAR website.
+#
+#   docker compose up -d --build
+#
+# Assumes Traefik is already running on the host with:
+#   - an external docker network named "tandem-proxy"
+#   - HTTP / HTTPS entrypoints named "http" / "https"
+#   - an ACME certresolver named "letsencrypt"
+# (same conventions as the other apps on this host).
+#
+# DOMAIN is read from the .env file next to this compose file.
+
+name: glycobar
+
+services:
+  glycobar-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      # Tag the built image so the deploy pipeline can prune ONLY this project's
+      # dangling images:  docker image prune -f --filter "label=project=glycobar".
+      # Other apps sharing this docker host are left untouched.
+      labels:
+        project: glycobar
+    image: glycobar-app:latest
+    container_name: glycobar-app
+    restart: unless-stopped
+    networks:
+      - tandem-proxy
+    healthcheck:
+      # busybox wget ships in the nginx:alpine runtime image.
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=tandem-proxy"
+
+      # HTTP -> HTTPS redirect.  ${DOMAIN:?...} fails the deploy fast if DOMAIN
+      # is missing from .env, instead of registering an invalid empty Host rule.
+      - "traefik.http.routers.glycobar-app-http.rule=Host(`${DOMAIN:?DOMAIN must be set in .env}`)"
+      - "traefik.http.routers.glycobar-app-http.entrypoints=http"
+      - "traefik.http.routers.glycobar-app-http.middlewares=glycobar-app-https-redirect"
+      - "traefik.http.middlewares.glycobar-app-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.glycobar-app-https-redirect.redirectscheme.permanent=true"
+
+      # HTTPS router
+      - "traefik.http.routers.glycobar-app.rule=Host(`${DOMAIN:?DOMAIN must be set in .env}`)"
+      - "traefik.http.routers.glycobar-app.entrypoints=https"
+      - "traefik.http.routers.glycobar-app.tls=true"
+      - "traefik.http.routers.glycobar-app.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.glycobar-app.service=glycobar-app"
+
+      # Service (internal port exposed by nginx)
+      - "traefik.http.services.glycobar-app.loadbalancer.server.port=80"
+
+      # NOTE: no www -> apex redirect here. The site is served from a
+      # subdomain (glycobar.ironhandscapital.com), so there is no www.<domain>
+      # record to redirect from — unlike the apex-domain apps on this host.
+
+      # Security headers
+      - "traefik.http.routers.glycobar-app.middlewares=glycobar-app-headers"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.stsSeconds=31536000"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.stsIncludeSubdomains=true"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.stsPreload=true"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.contentTypeNosniff=true"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.browserXssFilter=true"
+      - "traefik.http.middlewares.glycobar-app-headers.headers.referrerPolicy=strict-origin-when-cross-origin"
+
+networks:
+  tandem-proxy:
+    external: true
