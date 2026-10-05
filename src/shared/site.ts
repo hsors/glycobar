@@ -1,6 +1,6 @@
 import glycobarLogo from '../assets/brand/glycobar-logo.png'
 import glycobarLogoReversed from '../assets/brand/glycobar-logo-reversed.png'
-import france2030Logo from '../assets/partners/france-2030.svg'
+import franceRelanceLogo from '../assets/partners/france-relance.png'
 import { arrowIcon } from './icons'
 
 export type SitePage = 'home' | 'products' | 'impact'
@@ -58,7 +58,7 @@ export const siteFooter = () => `
       <div class="footer-support">
         <span class="made-in-france">Proudly made in France <i class="france-flag" role="img" aria-label="French flag"></i></span>
         <span class="support-copy">With the support of</span>
-        <img src="${france2030Logo}" alt="France 2030" />
+        <img src="${franceRelanceLogo}" alt="France Relance" />
       </div>
       <p class="copyright">© ${new Date().getFullYear()} GlycoBAR</p>
     </div>
