@@ -15,7 +15,7 @@ COPY . .
 RUN npm run build
 
 
-FROM nginx:1.27-alpine AS runtime
+FROM nginx:1.30-alpine AS runtime
 
 # Replace the stock default.conf: we need directory-index resolution for the
 # /products/ and /impact/ entries plus split cache headers (see nginx.conf).
