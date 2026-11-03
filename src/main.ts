@@ -224,6 +224,55 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <div class="tech-card-top">
                 <div>
                   <span class="card-index">02</span>
+                  <p class="eyebrow">The ligand</p>
+                </div>
+              </div>
+              <svg class="tech-process-figure linker-figure" viewBox="0 0 320 122" role="img" aria-label="The ABO antigen receives an amine-terminated spacer arm">
+                <g transform="translate(46 0)">
+                  <g class="process-antigen" aria-hidden="true">
+                    <path d="M18 55h24m34 0h24m34 0h18M59 38V21" />
+                    <rect x="4" y="38" width="28" height="34" rx="2" />
+                    <circle cx="59" cy="55" r="17" />
+                    <path d="M59 10l16 28H43z" />
+                    <rect x="100" y="38" width="34" height="34" rx="2" />
+                  </g>
+                  <g class="process-addition" aria-hidden="true">
+                    <path d="M134 55h15l8-10 10 20 11-20 11 10h22" />
+                    <circle cx="149" cy="55" r="2.5" /><circle cx="167" cy="65" r="2.5" />
+                    <circle class="process-anchor" cx="215" cy="55" r="8" />
+                    <path d="M211 55h8m-4-4v8" />
+                  </g>
+                  <g class="process-caption" aria-hidden="true">
+                    <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text>
+                  </g>
+                </g>
+              </svg>
+              <h3>ABO antigen ligands</h3>
+              <p>We add an amine-terminated spacer arm to the antigen.</p>
+              <dl class="tech-specs">
+                <div><dt>Addition</dt><dd>Amine-terminated arm</dd></div>
+                <div><dt>Output</dt><dd>Linker-bearing ABO antigen</dd></div>
+                <div><dt>Function</dt><dd>Attachment to the support</dd></div>
+              </dl>
+              <div class="card-mark">
+                <svg class="card-mark-seal patent-seal" viewBox="0 0 64 64" role="img" aria-label="Patented technology">
+                  <path class="patent-seal-shield" d="M32 4 56 13v20c0 14-10 23-24 27C18 56 8 47 8 33V13z" />
+                  <path class="patent-seal-check" d="M22 32.5l7.5 7.5L43 26" />
+                </svg>
+                <div class="card-mark-copy">
+                  <span class="card-mark-head">Protected</span>
+                  <strong class="card-mark-title">Patented technology</strong>
+                  <span class="card-mark-note">ABO ligand functionalisation</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="tech-card reveal">
+            <div class="tech-card-content">
+              <div class="tech-card-top">
+                <div>
+                  <span class="card-index">03</span>
                   <p class="eyebrow">The connection</p>
                 </div>
               </div>
@@ -253,7 +302,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                 </g>
               </svg>
               <h3>Cellulosic grafting</h3>
-              <p>We add an amine-terminated spacer arm to the antigen, then covalently anchor the functionalised ligand onto cellulose.</p>
+              <p>We covalently anchor the functionalised ligand onto cellulose.</p>
               <dl class="tech-specs">
                 <div><dt>Addition</dt><dd>Amine-terminated arm</dd></div>
                 <div><dt>Bond</dt><dd>Covalent grafting</dd></div>
@@ -277,7 +326,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <div class="tech-card-content">
               <div class="tech-card-top">
                 <div>
-                  <span class="card-index">03</span>
+                  <span class="card-index">04</span>
                   <p class="eyebrow">The Manufacturing process</p>
                 </div>
               </div>

@@ -826,7 +826,7 @@ h3 {
 
 .technology-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -913,7 +913,8 @@ h3 {
   vector-effect: non-scaling-stroke;
 }
 
-.grafted-figure .process-antigen {
+.grafted-figure .process-antigen,
+.linker-figure .process-antigen {
   opacity: 0.5;
 }
 
@@ -1135,7 +1136,7 @@ h3 {
 }
 
 .industrial-card {
-  grid-column: span 2;
+  grid-column: 1 / -1;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(260px, 1fr);
 }
