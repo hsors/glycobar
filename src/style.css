@@ -834,8 +834,7 @@ h3 {
 .scale-card,
 .product-card,
 .impact-card,
-.catalogue-card,
-.reading-card {
+.catalogue-card {
   border: 1px solid var(--border);
   border-radius: 12px;
   background: #fff;
@@ -3160,203 +3159,6 @@ h3 {
   font: 500 13px/1 var(--font-mono);
 }
 
-/* Reading the catalogue --------------------------------------------------- */
-
-.reading {
-  display: flex;
-  align-items: center;
-  border-top: 1px solid var(--border);
-  background: var(--clay-50);
-}
-
-.reading > .section-shell {
-  padding-block: var(--section-y);
-}
-
-.reading-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.reading-card {
-  padding: clamp(26px, 2.6vw, 40px);
-  display: flex;
-  flex-direction: column;
-}
-
-.reading-card-head {
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.reading-card-head .eyebrow {
-  margin-bottom: 0;
-}
-
-.reading-card > p {
-  margin-top: 12px;
-  max-width: 58ch;
-  color: var(--stone-600);
-  font-size: 0.94rem;
-}
-
-/* Reach comparison -------------------------------------------------------- */
-
-.reach-chart {
-  /* the natural antigen's length, in residue-widths — every bar is drawn as a
-     fraction of it, so the dashed rule is where the reference reaches */
-  --reach-span: 6;
-  --reach-note-col: 118px;
-  --reach-gap: 16px;
-  position: relative;
-  margin-top: auto;
-  padding-top: clamp(24px, 3.4vh, 36px);
-  display: grid;
-  gap: 10px;
-}
-
-.reach-chart::before {
-  content: '';
-  position: absolute;
-  top: clamp(24px, 3.4vh, 36px);
-  bottom: 36px;
-  right: calc(var(--reach-note-col) + var(--reach-gap));
-  border-left: 1px dashed var(--clay-400);
-}
-
-.reach-row,
-.reach-axis {
-  display: grid;
-  grid-template-columns: 148px minmax(0, 1fr) var(--reach-note-col);
-  gap: var(--reach-gap);
-  align-items: center;
-}
-
-.reach-label strong {
-  display: block;
-  color: var(--clay-800);
-  font-family: var(--font-display);
-  font-size: 0.98rem;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.reach-label span {
-  color: var(--stone-400);
-  font: 0.56rem/1.6 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.reach-track {
-  height: 30px;
-  display: flex;
-}
-
-.reach-seg {
-  flex: 0 0 calc(var(--units) / var(--reach-span) * 100%);
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  font: 500 0.55rem/1 var(--font-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.reach-sugar {
-  border: 1px solid var(--clay-600);
-  color: var(--clay-800);
-  background: var(--clay-200);
-}
-
-/* hatched and dashed: the linker arm buys length without buying sugar */
-.reach-linker {
-  border: 1px dashed var(--clay-400);
-  border-left: 0;
-  color: var(--clay-600);
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--clay-50) 0 4px,
-    var(--clay-100) 4px 8px
-  );
-}
-
-.reach-row.is-emphasis .reach-sugar {
-  background: var(--clay-400);
-}
-
-.reach-row.is-emphasis .reach-note {
-  color: var(--clay-700);
-}
-
-.reach-note {
-  color: var(--stone-400);
-  font: 0.56rem/1.4 var(--font-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.reach-axis-mark {
-  grid-column: 2;
-  padding-top: 9px;
-  border-top: 1px dashed var(--clay-400);
-  color: var(--stone-400);
-  font: 0.55rem/1 var(--font-mono);
-  letter-spacing: 0.1em;
-  text-align: right;
-  text-transform: uppercase;
-}
-
-/* A versus B -------------------------------------------------------------- */
-
-.compare-stack {
-  margin-top: auto;
-  padding-top: clamp(24px, 3.4vh, 36px);
-  display: grid;
-  gap: 12px;
-}
-
-.compare-row {
-  padding: 12px 18px;
-  border: 1px solid var(--clay-100);
-  background: var(--clay-50);
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr);
-  gap: 18px;
-  align-items: center;
-}
-
-.compare-row .group-badge {
-  justify-self: start;
-}
-
-.glycan-compare {
-  width: 100%;
-  height: clamp(96px, 12vh, 122px);
-}
-
-.compare-note {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--stone-500);
-  font-size: 0.82rem;
-}
-
-.compare-swatch {
-  width: 14px;
-  height: 14px;
-  flex: none;
-  border: 2px solid var(--clay-700);
-  background: var(--clay-400);
-}
-
 /* Quotation call to action ------------------------------------------------ */
 
 .catalogue-cta {
@@ -3444,12 +3246,6 @@ h3 {
   transition-delay: 270ms;
 }
 
-@media (max-width: 1140px) {
-  .reading-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 860px) {
   .catalogue-grid {
     grid-template-columns: 1fr;
@@ -3458,27 +3254,6 @@ h3 {
   .catalogue-controls {
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  /* stacked rows: the note no longer sits in a fixed right-hand column, so the
-     reference rule has nothing to align to */
-  .reach-row,
-  .reach-axis {
-    grid-template-columns: 1fr;
-    gap: 8px;
-  }
-
-  .reach-chart::before {
-    display: none;
-  }
-
-  .reach-axis-mark {
-    grid-column: 1;
-  }
-
-  .compare-row {
-    grid-template-columns: 1fr;
-    gap: 10px;
   }
 
   .catalogue-cta {

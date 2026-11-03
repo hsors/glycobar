@@ -113,8 +113,3 @@ export const otherProducts: CatalogueItem[] = [
     structure: bHexaoseStructure,
   },
 ]
-
-export const comparisonGlycans = {
-  a: tetraose('A'),
-  b: tetraose('B'),
-}

@@ -1,6 +1,6 @@
 import './style.css'
 import { arrowIcon } from './shared/icons'
-import { comparisonGlycans, coreProducts, otherProducts, type CatalogueItem } from './shared/catalogue'
+import { coreProducts, otherProducts, type CatalogueItem } from './shared/catalogue'
 import { glycanSymbols } from './shared/glycan'
 import { applicationGrid, pipelineTable } from './shared/pipeline'
 import { initSiteChrome, siteContact, siteFooter, siteHeader } from './shared/site'
@@ -45,30 +45,6 @@ const catalogueCard = (item: CatalogueItem, featured = false) => `
   </article>
 `
 
-/* The claim this diagram carries comes straight from the catalogue: the
-   tetraose plus its linker arm reaches about as far as the natural
-   hexa-saccharide antigen, with two fewer sugars to synthesise. */
-const reachRow = (
-  label: string,
-  sublabel: string,
-  sugars: number,
-  linker: number,
-  note: string,
-  emphasis = false,
-) => `
-  <div class="reach-row${emphasis ? ' is-emphasis' : ''}">
-    <div class="reach-label">
-      <strong>${label}</strong>
-      <span>${sublabel}</span>
-    </div>
-    <div class="reach-track">
-      <span class="reach-seg reach-sugar" style="--units:${sugars}">${sugars} sugars</span>
-      ${linker ? `<span class="reach-seg reach-linker" style="--units:${linker}">linker arm</span>` : ''}
-    </div>
-    <span class="reach-note">${note}</span>
-  </div>
-`
-
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('products')}
 
@@ -99,60 +75,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
         <div class="catalogue-grid catalogue-more">
           ${otherProducts.map((item) => catalogueCard(item)).join('')}
-        </div>
-      </div>
-    </section>
-
-    <section class="reading page-panel" aria-labelledby="reading-heading">
-      <div class="section-shell">
-        <div class="section-heading reveal">
-          <div>
-            <p class="eyebrow">Reading the catalogue</p>
-            <h2 id="reading-heading">Two things the structures do not say out loud</h2>
-          </div>
-          <p>The same six molecules, drawn to answer the two questions customers actually ask: how far does the ligand reach, and what separates an A product from a B one.</p>
-        </div>
-
-        <div class="reading-grid">
-          <article class="reading-card reveal">
-            <div class="reading-card-head">
-              <span class="card-index">01</span>
-              <p class="eyebrow">Reach</p>
-            </div>
-            <h3>Four sugars and an arm, not six sugars</h3>
-            <p>The linker arm does the work the two missing residues would have done. The ligand presents the determinant at the same distance from its support, without paying to synthesise the spacer in sugar.</p>
-
-            <div class="reach-chart" aria-label="Length comparison between the catalogue forms">
-              ${reachRow('Natural antigen', 'On the erythrocyte', 6, 0, 'Reference')}
-              ${reachRow('Hexa-saccharide', 'Catalogue', 6, 0, 'Matched in sugar')}
-              ${reachRow('Tetraose + linker', 'Core product', 4, 2, 'Matched in reach', true)}
-              ${reachRow('Tri-saccharide', 'Catalogue', 3, 1.5, 'Shorter determinant')}
-              <div class="reach-axis" aria-hidden="true">
-                <span class="reach-axis-mark">Natural antigen reach</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="reading-card reveal">
-            <div class="reading-card-head">
-              <span class="card-index">02</span>
-              <p class="eyebrow">A versus B</p>
-            </div>
-            <h3>One residue apart</h3>
-            <p>Every A product and its B counterpart share an identical chain. Only the terminal residue changes — an N-acetylhexosamine instead of a hexose. That single acetyl group is the whole blood group barrier.</p>
-
-            <div class="compare-stack">
-              <div class="compare-row">
-                <span class="group-badge group-a">Group A</span>
-                ${glycanSymbols(comparisonGlycans.a, { className: 'glycan-compare', label: 'Blood group A tetraose, terminating in GalNAc' })}
-              </div>
-              <div class="compare-row">
-                <span class="group-badge group-b">Group B</span>
-                ${glycanSymbols(comparisonGlycans.b, { className: 'glycan-compare', label: 'Blood group B tetraose, terminating in Gal' })}
-              </div>
-              <p class="compare-note"><span class="compare-swatch" aria-hidden="true"></span>The solid residue is the only difference: GalNAc for A, Gal for B.</p>
-            </div>
-          </article>
         </div>
       </div>
     </section>
