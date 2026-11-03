@@ -38,7 +38,7 @@ const catalogueCard = (item: CatalogueItem, featured = false) => `
     <p>${item.note}</p>
 
     <dl class="tech-specs catalogue-specs">
-      <div><dt>Residues</dt><dd>${item.residues}</dd></div>
+      <div><dt>Epitope</dt><dd>${item.residues}</dd></div>
       <div><dt>Termination</dt><dd>${item.termination}</dd></div>
       <div><dt>Supply</dt><dd>Any quantity</dd></div>
     </dl>
