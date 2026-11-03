@@ -138,7 +138,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <p class="eyebrow">Born at the CNRS &middot; Seventeen years of research</p>
           <h2>French expertise in glycan and cellulose binding, turned into competitive ligands</h2>
           <p class="manifesto-lead">Our technology comes out of CNRS laboratories, where seventeen years of research on bacterial glycan synthesis and cellulose-binding chemistry were carried out before being transferred to industrial scale.</p>
-          <p>Our multidisciplinary team connects bacterial biofermentation, glycan chemistry and cellulosic grafting in one integrated platform. The result: consistent performance, industrial quantities and economics designed for broad access.</p>
+          <p>Our multidisciplinary team connects bacterial biofermentation, glycan chemistry and grafting onto cellulose and other supports in one integrated platform. The result: consistent performance, industrial quantities and economics designed for broad access.</p>
         </div>
         <div class="manifesto-stat reveal">
           <strong>17</strong>
@@ -199,7 +199,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                 </g>
               </svg>
               <h3>ABO antigens</h3>
-              <p>A and B tetraose antigens produced by bacterial biofermentation. At this stage, the glycan is isolated — without a linker or cellulosic support.</p>
+              <p>A and B tetraose antigens produced by bacterial biofermentation. At this stage, the glycan is isolated — without a linker or support.</p>
               <dl class="tech-specs">
                 <div><dt>Process</dt><dd>Bacterial biofermentation</dd></div>
                 <div><dt>Output</dt><dd>Purified ABO tetraose</dd></div>
@@ -301,12 +301,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text><text x="249" y="114">CELLULOSE</text>
                 </g>
               </svg>
-              <h3>Cellulosic grafting</h3>
-              <p>We covalently anchor the functionalised ligand onto cellulose.</p>
+              <h3>Grafting onto supports</h3>
+              <p>We covalently anchor the functionalised ligand onto cellulose, or onto other supports such as chromatography resins.</p>
               <dl class="tech-specs">
                 <div><dt>Addition</dt><dd>Amine-terminated arm</dd></div>
                 <div><dt>Bond</dt><dd>Covalent grafting</dd></div>
-                <div><dt>Support</dt><dd>Cellulosic media</dd></div>
+                <div><dt>Support</dt><dd>Cellulose, chromatography resins</dd></div>
               </dl>
               <div class="card-mark">
                 <svg class="card-mark-seal patent-seal" viewBox="0 0 64 64" role="img" aria-label="Patented technology">
@@ -316,7 +316,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                 <div class="card-mark-copy">
                   <span class="card-mark-head">Protected</span>
                   <strong class="card-mark-title">Patented technology</strong>
-                  <span class="card-mark-note">Glycan grafting onto cellulose</span>
+                  <span class="card-mark-note">Glycan grafting onto supports</span>
                 </div>
               </div>
             </div>

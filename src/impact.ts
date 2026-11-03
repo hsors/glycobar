@@ -72,12 +72,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <div class="impact-base-copy">
               <p class="eyebrow eyebrow-light">The foundation</p>
               <h2>Ligands within reach, on a support that competes on cost</h2>
-              <p>Bacterial biofermentation puts A and B antigen ligands within industrial reach, and our patented chemistry fixes them covalently onto cellulosic media at economics the market can adopt.</p>
+              <p>Bacterial biofermentation puts A and B antigen ligands within industrial reach, and our patented chemistry fixes them covalently onto cellulosic media, or onto other supports such as chromatography resins, at economics the market can adopt.</p>
             </div>
             <ul class="impact-base-keys">
               <li><span>Ligand</span><strong>ABO tetraose at industrial scale</strong></li>
               <li><span>Graft</span><strong>Covalent, patented chemistry</strong></li>
-              <li><span>Support</span><strong>Cellulosic, cost-competitive</strong></li>
+              <li><span>Support</span><strong>Cellulose, chromatography resins</strong></li>
             </ul>
           </div>
 
