@@ -2,6 +2,7 @@ import thermoFisherLogo from '../assets/partners/thermo-fisher.svg'
 import nhsbtLogo from '../assets/partners/nhsbt.svg'
 import vitrosorbLogo from '../assets/partners/vitrosorb.png'
 import cytosorbentsLogo from '../assets/partners/cytosorbents.svg'
+import grifolsLogo from '../assets/partners/grifols.png'
 import { arrowIcon, elisaPlateIcon, plateletBagIcon } from './icons'
 
 /* The applications grid and the R&D table appear on both the home page and the
@@ -33,6 +34,7 @@ export const applicationGrid = () => `
         <span class="product-users-label">Used by</span>
         <div class="user-logos">
           <img src="${thermoFisherLogo}" alt="Thermo Fisher Scientific" />
+          <img src="${grifolsLogo}" alt="Grifols" />
         </div>
       </div>
       <a class="text-link" href="#contact">Discuss supply ${arrowIcon}</a>
