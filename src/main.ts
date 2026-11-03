@@ -198,7 +198,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <path d="M77 105h127" />
                 </g>
               </svg>
-              <h3>ABO antigen ligands</h3>
+              <h3>ABO antigens</h3>
               <p>A and B tetraose antigens produced by bacterial biofermentation. At this stage, the glycan is isolated — without a linker or cellulosic support.</p>
               <dl class="tech-specs">
                 <div><dt>Process</dt><dd>Bacterial biofermentation</dd></div>
