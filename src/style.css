@@ -3106,15 +3106,24 @@ h3 {
   stroke-linejoin: round;
 }
 
-/* the fucose branch — filled so it separates from the backbone hexoses it
-   shares an outline with */
-path.glycan-residue {
-  fill: var(--clay-200);
+/* One tone per sugar, wherever the antigen is drawn (catalogue, hero, technology
+   cards): Gal / GalNAc mid, Glc / GlcNAc dark, Fuc light. */
+.glycan-residue.sugar-gal,
+.process-antigen .sugar-gal,
+.sugar-node > .sugar-gal {
+  fill: var(--clay-300);
 }
 
-/* GalNAc for A, Gal for B: the one residue the two families differ by */
-.glycan-residue.is-defining {
-  fill: var(--clay-400);
+.glycan-residue.sugar-glc,
+.process-antigen .sugar-glc,
+.sugar-node > .sugar-glc {
+  fill: var(--clay-700);
+}
+
+.glycan-residue.sugar-fuc,
+.process-antigen .sugar-fuc,
+.sugar-node > .sugar-fuc {
+  fill: var(--clay-50);
 }
 
 .glycan-name {

@@ -8,9 +8,6 @@
 export type Residue = {
   shape: 'square' | 'circle' | 'triangle'
   label: string
-  /* the terminal residue that decides A from B — drawn solid so the single
-     difference between the two families reads at a glance */
-  defining?: boolean
 }
 
 export type Glycan = {
@@ -28,8 +25,18 @@ export const GAL: Residue = { shape: 'circle', label: 'Gal' }
 export const GLC: Residue = { shape: 'circle', label: 'Glc' }
 export const GLCNAC: Residue = { shape: 'square', label: 'GlcNAc' }
 export const FUC: Residue = { shape: 'triangle', label: 'Fuc' }
-export const GALNAC_A: Residue = { shape: 'square', label: 'GalNAc', defining: true }
-export const GAL_B: Residue = { shape: 'circle', label: 'Gal', defining: true }
+export const GALNAC_A: Residue = { shape: 'square', label: 'GalNAc' }
+export const GAL_B: Residue = { shape: 'circle', label: 'Gal' }
+
+/* Colour follows the sugar, as in the nomenclature: galactose and its N-acetyl
+   form share one tone, glucose and its N-acetyl form a darker one, fucose the
+   lightest. The classes are shared with the hero and card figures in style.css
+   so one antigen always looks the same. */
+const toneClass = (label: string) => {
+  if (label === 'Gal' || label === 'GalNAc') return 'sugar-gal'
+  if (label === 'Glc' || label === 'GlcNAc') return 'sugar-glc'
+  return 'sugar-fuc'
+}
 
 const RADIUS = 17
 /* wide enough that a linkage label centred on a bond clears the branch label
@@ -41,8 +48,8 @@ const BRANCH_Y = 36
 const HEIGHT = 152
 const LINKER_RUN = 64
 
-const residueSymbol = ({ shape, label, defining }: Residue, x: number, y: number) => {
-  const cls = `glycan-residue${defining ? ' is-defining' : ''}`
+const residueSymbol = ({ shape, label }: Residue, x: number, y: number) => {
+  const cls = `glycan-residue ${toneClass(label)}`
   const symbol = shape === 'square'
     ? `<rect class="${cls}" x="${x - RADIUS}" y="${y - RADIUS}" width="${RADIUS * 2}" height="${RADIUS * 2}" rx="2" />`
     : shape === 'circle'
