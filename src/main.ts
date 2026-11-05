@@ -175,13 +175,13 @@ const advisors = [
   {
     name: 'Vivien Sayve',
     role: 'Managing Partner, Iron Hands Capital',
-    bio: 'Deeptech investor.',
+    bio: 'Deeptech investor. Previously CFO & Head of Strategy at Exaion, then turnaround and operations at Albus Partners and venture capital at EDF Pulse Ventures. MSc in Corporate Finance & Banking, EDHEC Business School.',
     photo: vivienSayvePhoto,
   },
   {
     name: 'Guy Rigaud',
     role: 'Supervisory Board member, Kalray',
-    bio: '',
+    bio: 'Member of the Kalray supervisory board since 2010. Associate Director at EUREKAP! from 2012 to 2025.',
     photo: guyRigaudPhoto,
   },
 ]
