@@ -114,7 +114,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                 <p class="eyebrow">Blood supply economics</p>
               </div>
               ${inventoryIcon}
-              <h2>Stop discarding usable units</h2>
+              <h2>Limit wastage of blood components</h2>
               <p>Without a group constraint, units that would have expired unmatched stay usable. One inventory instead of four, less outdating, simpler logistics for every transfusion service.</p>
               <div class="impact-outcome">
                 ${outcomeArrow}
