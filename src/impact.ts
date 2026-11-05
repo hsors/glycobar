@@ -132,7 +132,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               ${newTherapyIcon}
               <h2>De-risk and unlock new medicines</h2>
-              <p>Stripping IgM isoagglutinins takes the haemolytic risk out of high-value plasma-derived drugs such as IVIG, and opens therapies that could never have cleared that risk before.</p>
+              <p>Stripping isoagglutinins takes the haemolytic risk out of high-value plasma-derived drugs such as IVIG, and opens therapies that could never have cleared that risk before.</p>
               <div class="impact-outcome">
                 ${outcomeArrow}
                 <div>
