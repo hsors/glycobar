@@ -1984,6 +1984,33 @@ h3 {
   font-weight: 400;
 }
 
+/* The page's framing statement, before the diagram: what the impacts below
+   add up to, in the words of the UN goals GlycoBAR reports against. */
+.impact-mission {
+  max-width: 78ch;
+  margin-bottom: clamp(28px, 4vh, 44px);
+  padding-left: clamp(18px, 2vw, 26px);
+  border-left: 2px solid var(--clay-300);
+}
+
+.impact-mission .eyebrow {
+  margin-bottom: 10px;
+}
+
+.impact-mission strong {
+  display: block;
+  color: var(--clay-800);
+  font: 400 clamp(1.2rem, 1.7vw, 1.5rem)/1.3 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.impact-mission p:not(.eyebrow) {
+  margin-top: 10px;
+  color: var(--stone-600);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
 .impact-flow {
   position: relative;
   height: clamp(88px, 10vh, 118px);
@@ -2157,6 +2184,39 @@ h3 {
   color: var(--stone-600);
   font-size: 0.88rem;
   line-height: 1.55;
+}
+
+.impact-facts {
+  margin: 0 0 clamp(20px, 3vh, 28px);
+  padding: 0;
+  border-top: 1px solid var(--clay-100);
+  list-style: none;
+}
+
+.impact-facts li {
+  padding-block: 12px;
+  border-bottom: 1px solid var(--clay-100);
+  display: grid;
+  gap: 3px;
+}
+
+.impact-facts strong {
+  color: var(--clay-700);
+  font: 300 1.7rem/1.1 var(--font-display);
+  letter-spacing: -0.03em;
+}
+
+.impact-facts span {
+  color: var(--stone-600);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.impact-facts cite {
+  color: var(--stone-400);
+  font: normal 0.55rem/1.5 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 /* auto margin pins the outcome to the foot of the card, so the strips line up

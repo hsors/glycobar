@@ -53,6 +53,11 @@ const outcomeArrow = `
   </svg>
 `
 
+/* A figure with its published source, so the claim can be checked. The figure
+   is optional: some points rest on a source but carry no number. */
+const fact = (value: string, text: string, source: string) => `
+                <li>${value ? `<strong>${value}</strong>` : ''}<span>${text}</span><cite>Source · ${source}</cite></li>`
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('impact')}
 
@@ -65,6 +70,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <h1 id="impact-heading">What changes when the ligand stops being the bottleneck</h1>
           </div>
           <p>It starts with one enabling layer. Below it, the three things that layer makes possible — and the programmes we are already building out of it.</p>
+        </div>
+
+        <div class="impact-mission reveal">
+          <p class="eyebrow">UN Sustainable Development Goals</p>
+          <strong>By leading innovation to expand access to life-saving medical products and support the work of healthcare professionals.</strong>
+          <p>GlycoBAR contributes to the achievement of the United Nations Sustainable Development Goals (SDGs). The main impacts are the following:</p>
         </div>
 
         <div class="impact-stack">
@@ -98,7 +109,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               ${crossGroupIcon}
               <h2>Transplant across blood groups</h2>
-              <p>Affinity columns designed using our ligands remove anti-A and anti-B antibodies from a patient’s blood; as a result, the organ donor’s blood type no longer needs to be compatible with that of the recipient.</p>
+              <p>Affinity columns designed using our ligands remove anti-A and anti-B antibodies from a patient’s blood; as a result, the organ donor’s blood type no longer needs to be compatible with that of the recipient. Universal kidney transplantation is now possible, and other transplants will follow: liver, heart, lung, bone marrow and more.</p>
+              <ul class="impact-facts">${fact('≈ 10–15%', 'of kidney transplant opportunities are missed because of ABO incompatibility', 'American Journal of Transplantation')}
+              </ul>
               <div class="impact-outcome">
                 ${outcomeArrow}
                 <div>
@@ -115,7 +128,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               ${inventoryIcon}
               <h2>Limit wastage of blood components</h2>
-              <p>Without a group constraint, units that would have expired unmatched stay usable. One inventory instead of four, less outdating, simpler logistics for every transfusion service.</p>
+              <p>Without a group constraint, units that would have expired unmatched stay usable. One inventory instead of four, less outdating, simpler logistics for every transfusion service. Universal plasma and platelets also mean less risk of error, and an easier job for health professionals, particularly caregivers.</p>
+              <ul class="impact-facts">${fact('10–20%', 'of blood products are discarded in developed countries', 'Transfusion Medicine Reviews')}${fact('~300', '“near misses” a year in the UK alone', '2021 Annual SHOT Report')}${fact('', 'Improves plasma availability: wider access for the most vulnerable, and for fighting serious diseases (sickle cell disease, anaemia, thalassaemia, etc.)', 'WHO Global Database on Blood Safety')}
+              </ul>
               <div class="impact-outcome">
                 ${outcomeArrow}
                 <div>
@@ -132,7 +147,9 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               ${newTherapyIcon}
               <h2>De-risk and unlock new medicines</h2>
-              <p>Stripping isoagglutinins takes the haemolytic risk out of high-value plasma-derived drugs such as IVIG, and opens therapies that could never have cleared that risk before.</p>
+              <p>Stripping isoagglutinins takes the haemolytic risk out of high-value plasma-derived drugs such as IVIG, and opens therapies that could never have cleared that risk before, such as new treatments based on IgM. It makes IVIG therapy safer by eliminating haemolysis accidents during massive injections of ungrouped IVIG in immunocompromised patients.</p>
+              <ul class="impact-facts">${fact('> 500', 'critical accidents a year in the US alone', 'Journal of Clinical Apheresis')}
+              </ul>
               <div class="impact-outcome">
                 ${outcomeArrow}
                 <div>
