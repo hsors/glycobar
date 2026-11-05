@@ -11,6 +11,9 @@ import vivienDeloulePhoto from './assets/team/vivien-deloule.png'
 import ludovicBastidePhoto from './assets/team/ludovic-bastide.png'
 import jacquelineHuetPhoto from './assets/team/jacqueline-huet.png'
 import davidCuccoloPhoto from './assets/team/david-cuccolo.jpg'
+import alexandreConroyPhoto from './assets/team/alexandre-conroy.png'
+import vivienSayvePhoto from './assets/team/vivien-sayve.png'
+import guyRigaudPhoto from './assets/team/guy-rigaud.png'
 import { arrowIcon } from './shared/icons'
 import { applicationGrid, pipelineTable } from './shared/pipeline'
 import { initSiteChrome, siteContact, siteFooter, siteHeader } from './shared/site'
@@ -148,7 +151,7 @@ const team = [
     name: 'Jacqueline Huet',
     nickname: 'The compliance gatekeeper',
     role: 'Quality manager',
-    bio: '',
+    bio: 'Operational support for technology SMEs and start-ups. Trained at the École Nationale Supérieure de Chimie Industrielle de Rouen.',
     photo: jacquelineHuetPhoto,
   },
   {
@@ -160,22 +163,49 @@ const team = [
   },
 ]
 
-const teamCards = team
-  .map(
-    ({ name, nickname, role, bio, photo }) => `
+/* Advisors are outside the company, so they carry no nickname — the card just
+   drops that line. */
+const advisors = [
+  {
+    name: 'Alexandre Conroy',
+    role: 'Independent Board Director',
+    bio: 'Former BD Executive Vice President. 30 years of international leadership across MedTech, Life Sciences and drug-device businesses.',
+    photo: alexandreConroyPhoto,
+  },
+  {
+    name: 'Vivien Sayve',
+    role: 'Managing Partner, Iron Hands Capital',
+    bio: 'Deeptech investor.',
+    photo: vivienSayvePhoto,
+  },
+  {
+    name: 'Guy Rigaud',
+    role: 'Supervisory Board member, Kalray',
+    bio: '',
+    photo: guyRigaudPhoto,
+  },
+]
+
+const memberCards = (members: { name: string; nickname?: string; role: string; bio: string; photo: string }[]) =>
+  members
+    .map(
+      ({ name, nickname, role, bio, photo }) => `
           <li class="team-card reveal">
             <div class="team-card-head">
               <img class="team-photo" src="${photo}" alt="${name}" width="88" height="88" loading="lazy" />
               <div>
-                <h3>${name}</h3>
-                <p class="team-nickname">“${nickname}”</p>
+                <h3>${name}</h3>${nickname ? `
+                <p class="team-nickname">“${nickname}”</p>` : ''}
               </div>
             </div>
             <p class="team-role">${role}</p>${bio ? `
             <p class="team-bio">${bio}</p>` : ''}
           </li>`,
-  )
-  .join('')
+    )
+    .join('')
+
+const teamCards = memberCards(team)
+const advisorCards = memberCards(advisors)
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('home')}
@@ -227,6 +257,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </div>
 
         <ul class="team-grid">${teamCards}
+        </ul>
+
+        <div class="section-heading team-subheading reveal">
+          <div>
+            <h2 id="advisory-heading">Advisory board</h2>
+          </div>
+        </div>
+
+        <ul class="team-grid" aria-labelledby="advisory-heading">${advisorCards}
         </ul>
       </div>
     </section>

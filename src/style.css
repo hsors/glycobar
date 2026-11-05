@@ -756,6 +756,14 @@ h3 {
   gap: 20px;
 }
 
+.team-subheading {
+  margin-top: clamp(48px, 7vh, 72px);
+}
+
+.team-subheading h2 {
+  font-size: clamp(1.9rem, 2.8vw, 2.6rem);
+}
+
 .team-card {
   padding: clamp(22px, 1.8vw, 28px);
   border: 1px solid var(--border);
