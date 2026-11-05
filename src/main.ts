@@ -5,6 +5,12 @@ import nhsbtLogo from './assets/partners/nhsbt.svg'
 import vitrosorbLogo from './assets/partners/vitrosorb.png'
 import cytosorbentsLogo from './assets/partners/cytosorbents.svg'
 import cnrsLogo from './assets/partners/cnrs.svg'
+import henriSorsPhoto from './assets/team/henri-sors.jpg'
+import bernardMandrandPhoto from './assets/team/bernard-mandrand.png'
+import vivienDeloulePhoto from './assets/team/vivien-deloule.png'
+import ludovicBastidePhoto from './assets/team/ludovic-bastide.png'
+import jacquelineHuetPhoto from './assets/team/jacqueline-huet.png'
+import davidCuccoloPhoto from './assets/team/david-cuccolo.jpg'
 import { arrowIcon } from './shared/icons'
 import { applicationGrid, pipelineTable } from './shared/pipeline'
 import { initSiteChrome, siteContact, siteFooter, siteHeader } from './shared/site'
@@ -109,6 +115,68 @@ const antiAGlycan = `
   </svg>
 `
 
+const team = [
+  {
+    name: 'Henri Sors',
+    nickname: 'The seasoned entrepreneur',
+    role: 'Co-founder & CEO',
+    bio: 'Background of EE engineering + MBA. 25 years with Hewlett-Packard.',
+    photo: henriSorsPhoto,
+  },
+  {
+    name: 'Bernard Mandrand',
+    nickname: 'The idea wrangler',
+    role: 'Co-founder & scientific manager',
+    bio: '33 years at bioMérieux and 7 years at Lyonbiopole as head of research programs.',
+    photo: bernardMandrandPhoto,
+  },
+  {
+    name: 'Vivien Deloule',
+    nickname: 'The multitasking specialist',
+    role: 'Operations manager',
+    bio: 'Engineering degree and PhD. Balances lab logistics, supply chain nightmares, and frantic grant deadlines without breaking a sweat.',
+    photo: vivienDeloulePhoto,
+  },
+  {
+    name: 'Ludovic Bastide',
+    nickname: 'The bacteria whisperer',
+    role: 'Technical manager',
+    bio: 'PhD in microbiology. Transforms biology madness into structured workflows while keeping everyone (mostly) sane.',
+    photo: ludovicBastidePhoto,
+  },
+  {
+    name: 'Jacqueline Huet',
+    nickname: 'The compliance gatekeeper',
+    role: 'Quality manager',
+    bio: '',
+    photo: jacquelineHuetPhoto,
+  },
+  {
+    name: 'David Cuccolo',
+    nickname: 'The human calculator',
+    role: 'Financial manager',
+    bio: 'Speaks fluent Excel, sees the future in cash flow, and ensures the company doesn’t go broke.',
+    photo: davidCuccoloPhoto,
+  },
+]
+
+const teamCards = team
+  .map(
+    ({ name, nickname, role, bio, photo }) => `
+          <li class="team-card reveal">
+            <div class="team-card-head">
+              <img class="team-photo" src="${photo}" alt="${name}" width="88" height="88" loading="lazy" />
+              <div>
+                <h3>${name}</h3>
+                <p class="team-nickname">“${nickname}”</p>
+              </div>
+            </div>
+            <p class="team-role">${role}</p>${bio ? `
+            <p class="team-bio">${bio}</p>` : ''}
+          </li>`,
+  )
+  .join('')
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('home')}
 
@@ -146,6 +214,20 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <strong class="manifesto-stat-secondary"><img src="${cnrsLogo}" alt="CNRS" /></strong>
           <span>research origin of the<br />ligand and grafting technology</span>
         </div>
+      </div>
+    </section>
+
+    <section class="team" id="team" aria-labelledby="team-heading">
+      <div class="section-shell">
+        <div class="section-heading reveal">
+          <div>
+            <p class="eyebrow">Company</p>
+            <h2 id="team-heading">Our team</h2>
+          </div>
+        </div>
+
+        <ul class="team-grid">${teamCards}
+        </ul>
       </div>
     </section>
 

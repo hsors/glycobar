@@ -731,6 +731,83 @@ h3 {
   line-height: 1.5;
 }
 
+/* Team — part of the Company story, so it continues the manifesto's white
+   panel instead of opening a new one. */
+
+.manifesto:has(+ .team) {
+  border-bottom: 0;
+}
+
+.team {
+  border-bottom: 1px solid var(--border);
+  background: var(--stone-0);
+}
+
+.team > .section-shell {
+  padding-block: 0 var(--section-y);
+}
+
+.team-grid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.team-card {
+  padding: clamp(22px, 1.8vw, 28px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--clay-50);
+}
+
+.team-card-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.team-photo {
+  width: 88px;
+  height: 88px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--clay-100);
+  object-fit: cover;
+}
+
+.team-card h3 {
+  font-size: 1.35rem;
+  line-height: 1.15;
+}
+
+.team-nickname {
+  margin-top: 6px;
+  color: var(--clay-600);
+  font-size: 0.9rem;
+  font-style: italic;
+  line-height: 1.35;
+}
+
+.team-role {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--clay-200);
+  color: var(--clay-700);
+  font: 500 0.68rem/1.5 var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.team-bio {
+  margin-top: 8px;
+  color: var(--stone-600);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
 .proof-band {
   min-height: 0;
   display: flex;
@@ -2408,6 +2485,10 @@ h3 {
     grid-template-columns: 120px 1fr;
   }
 
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .manifesto-stat {
     grid-column: 2;
     max-width: 260px;
@@ -2637,6 +2718,10 @@ h3 {
   .manifesto-grid {
     grid-template-columns: 1fr;
     gap: 30px;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
   }
 
   .manifesto-stat {
