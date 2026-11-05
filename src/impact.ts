@@ -98,7 +98,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               ${crossGroupIcon}
               <h2>Transplant across blood groups</h2>
-              <p>Affinity columns built on our ligands clear anti-A and anti-B antibodies from a patient's blood, so a donor organ no longer has to match their group.</p>
+              <p>Affinity columns designed using our ligands remove anti-A and anti-B antibodies from a patient’s blood; as a result, the organ donor’s blood type no longer needs to be compatible with that of the recipient.</p>
               <div class="impact-outcome">
                 ${outcomeArrow}
                 <div>
