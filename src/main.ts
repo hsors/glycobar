@@ -48,7 +48,7 @@ const antiAGlycan = `
 
     <g class="ligand-assembly" aria-hidden="true">
       <path class="ligand-backbone" d="M22 180h42m54 0h42m54 0h42" />
-      <path class="ligand-backbone" d="M187 153V111" />
+      <path class="ligand-backbone" d="M187 153V101" />
 
       <g class="sugar-node" transform="translate(91 180)">
         <rect class="sugar-gal" x="-27" y="-27" width="54" height="54" rx="2" />
@@ -305,15 +305,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <div class="tech-card-top">
                 <div>
                   <span class="card-index">01</span>
-                  <p class="eyebrow">The ligand</p>
+                  <p class="eyebrow">The antigen epitope</p>
                 </div>
               </div>
-              <svg class="tech-process-figure ligand-only-figure" viewBox="0 0 320 122" role="img" aria-label="ABO antigen ligand without linker">
+              <svg class="tech-process-figure ligand-only-figure" viewBox="0 -16 320 138" role="img" aria-label="ABO antigen ligand without linker">
                 <g class="process-antigen" transform="translate(50 0)" aria-hidden="true">
-                  <path d="M40 60h38m44 0h38m44 0h38M100 38V17" />
+                  <path d="M40 60h38m44 0h38m44 0h38M100 38V23" />
                   <rect class="sugar-gal" x="14" y="38" width="44" height="44" rx="2" />
                   <circle class="sugar-gal" cx="100" cy="60" r="22" />
-                  <path class="sugar-fuc" d="M100 4l21 35H79z" />
+                  <path class="sugar-fuc" d="M100-12l21 35H79z" />
                   <circle class="sugar-glc" cx="182" cy="60" r="22" />
                 </g>
                 <g class="process-caption" transform="translate(50 0)" aria-hidden="true">
@@ -350,13 +350,13 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <p class="eyebrow">The ligand</p>
                 </div>
               </div>
-              <svg class="tech-process-figure linker-figure" viewBox="0 0 320 122" role="img" aria-label="The ABO antigen receives an amine-terminated spacer arm">
+              <svg class="tech-process-figure linker-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine-terminated spacer arm">
                 <g transform="translate(46 0)">
                   <g class="process-antigen" aria-hidden="true">
-                    <path d="M18 55h24m34 0h24m34 0h18M59 38V21" />
+                    <path d="M18 55h24m34 0h24m34 0h18M59 38V22" />
                     <rect class="sugar-gal" x="4" y="38" width="28" height="34" rx="2" />
                     <circle class="sugar-gal" cx="59" cy="55" r="17" />
-                    <path class="sugar-fuc" d="M59 10l16 28H43z" />
+                    <path class="sugar-fuc" d="M59-6l16 28H43z" />
                     <circle class="sugar-glc" cx="117" cy="55" r="17" />
                   </g>
                   <g class="process-addition" aria-hidden="true">
@@ -399,12 +399,12 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <p class="eyebrow">The connection</p>
                 </div>
               </div>
-              <svg class="tech-process-figure grafted-figure" viewBox="0 0 320 122" role="img" aria-label="The ABO antigen receives an amine linker and is covalently grafted onto cellulose">
+              <svg class="tech-process-figure grafted-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine linker and is covalently grafted onto cellulose">
                 <g class="process-antigen" aria-hidden="true">
-                  <path d="M18 55h24m34 0h24m34 0h18M59 38V21" />
+                  <path d="M18 55h24m34 0h24m34 0h18M59 38V22" />
                   <rect class="sugar-gal" x="4" y="38" width="28" height="34" rx="2" />
                   <circle class="sugar-gal" cx="59" cy="55" r="17" />
-                  <path class="sugar-fuc" d="M59 10l16 28H43z" />
+                  <path class="sugar-fuc" d="M59-6l16 28H43z" />
                   <circle class="sugar-glc" cx="117" cy="55" r="17" />
                 </g>
                 <g class="process-addition" aria-hidden="true">
