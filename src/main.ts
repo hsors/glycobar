@@ -262,7 +262,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
         <div class="section-heading team-subheading reveal">
           <div>
-            <h2 id="advisory-heading">Advisory board</h2>
+            <h2 id="advisory-heading">Board members</h2>
           </div>
         </div>
 
