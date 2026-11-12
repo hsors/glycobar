@@ -4,6 +4,7 @@ import thermoFisherLogo from './assets/partners/thermo-fisher.svg'
 import nhsbtLogo from './assets/partners/nhsbt.svg'
 import vitrosorbLogo from './assets/partners/vitrosorb.png'
 import cytosorbentsLogo from './assets/partners/cytosorbents.svg'
+import grifolsLogo from './assets/partners/grifols.png'
 import cnrsLogo from './assets/partners/cnrs.svg'
 import henriSorsPhoto from './assets/team/henri-sors.jpg'
 import bernardMandrandPhoto from './assets/team/bernard-mandrand.png'
@@ -281,6 +282,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
         <div class="logo-grid reveal">
           <div class="logo-cell"><img src="${thermoFisherLogo}" alt="Thermo Fisher Scientific" /></div>
+          <div class="logo-cell"><img src="${grifolsLogo}" alt="Grifols" /></div>
           <div class="logo-cell"><img src="${nhsbtLogo}" alt="NHS Blood and Transplant" /></div>
           <div class="logo-cell"><img src="${vitrosorbLogo}" alt="VitroSorb" /></div>
           <div class="logo-cell"><img src="${cytosorbentsLogo}" alt="CytoSorbents" /></div>

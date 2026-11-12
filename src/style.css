@@ -858,7 +858,7 @@ h3 {
   border-top: 1px solid var(--clay-200);
   border-bottom: 1px solid var(--clay-200);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .logo-cell {
@@ -2564,6 +2564,12 @@ h3 {
 
   .logo-cell:nth-child(n + 3) {
     border-top: 1px solid var(--clay-200);
+  }
+
+  /* five logos on two columns: the last one takes the whole row */
+  .logo-cell:nth-child(5) {
+    grid-column: 1 / -1;
+    border-left: 0;
   }
 
   .technology-grid {
