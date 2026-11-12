@@ -25,9 +25,9 @@ const antiAGlycan = `
 
     <defs>
       <linearGradient id="ligand-stroke" x1="20" y1="0" x2="425" y2="0" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#8c6138" stop-opacity=".48" />
-        <stop offset=".72" stop-color="#c5996b" stop-opacity=".9" />
-        <stop offset="1" stop-color="#e4d2be" />
+        <stop stop-color="#714d2c" stop-opacity=".9" />
+        <stop offset=".72" stop-color="#a87b4c" />
+        <stop offset="1" stop-color="#c5996b" />
       </linearGradient>
       <linearGradient id="wall-fill" x1="440" y1="0" x2="640" y2="0" gradientUnits="userSpaceOnUse">
         <stop stop-color="#a87b4c" stop-opacity=".12" />
@@ -35,9 +35,9 @@ const antiAGlycan = `
         <stop offset="1" stop-color="#3d2410" stop-opacity=".04" />
       </linearGradient>
       <radialGradient id="graft-core" cx="50%" cy="50%" r="50%">
-        <stop stop-color="#faf6f1" />
-        <stop offset=".35" stop-color="#d3b694" />
-        <stop offset="1" stop-color="#8c6138" stop-opacity=".15" />
+        <stop stop-color="#8c6138" />
+        <stop offset=".35" stop-color="#c5996b" />
+        <stop offset="1" stop-color="#a87b4c" stop-opacity=".15" />
       </radialGradient>
       <filter id="graft-glow" x="-180%" y="-180%" width="460%" height="460%">
         <feGaussianBlur stdDeviation="7" result="blur" />
@@ -214,11 +214,11 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
     <section class="hero page-panel">
       <div class="hero-shell">
         <div class="hero-copy reveal">
-          <p class="eyebrow eyebrow-light">Blood group antigen ligands · Made in France</p>
+          <p class="eyebrow">Blood group antigen ligands · Made in France</p>
           <h1>Make universal blood plasma available at scale</h1>
           <p class="hero-lead">We engineer and manufacture high-affinity blood group antigen ligands to remove anti-A and anti-B antibodies.</p>
           <div class="hero-actions">
-            <a class="button button-light" href="#technology">Our technology ${arrowIcon}</a>
+            <a class="button button-dark" href="#technology">Our technology ${arrowIcon}</a>
             <a class="button button-outline" href="#pipeline">Explore the pipeline</a>
           </div>
         </div>
@@ -540,4 +540,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteFooter()}
 `
 
-initSiteChrome({ heroTrigger: '#company' })
+initSiteChrome({ darkHeader: true })

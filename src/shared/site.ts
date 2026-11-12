@@ -66,16 +66,18 @@ export const siteFooter = () => `
 `
 
 type ChromeOptions = {
-  /* Pages that open on a dark hero let the header start transparent and turn
-     solid on scroll. Sub-pages open on light content, so it starts solid. */
-  heroTrigger?: string
+  /* The home page keeps its dark-brown header bar on every scroll position.
+     Sub-pages use the white header. */
+  darkHeader?: boolean
 }
 
-export const initSiteChrome = ({ heroTrigger }: ChromeOptions = {}) => {
+export const initSiteChrome = ({ darkHeader = false }: ChromeOptions = {}) => {
   const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')
   const menu = document.querySelector<HTMLElement>('[data-menu]')
   const header = document.querySelector<HTMLElement>('[data-header]')
-  const trigger = heroTrigger ? document.querySelector<HTMLElement>(heroTrigger) : null
+
+  /* `is-scrolled` is the white header; without it the bar is the dark one. */
+  header?.classList.toggle('is-scrolled', !darkHeader)
 
   menuToggle?.addEventListener('click', () => {
     const isOpen = menuToggle.getAttribute('aria-expanded') === 'true'
@@ -92,24 +94,6 @@ export const initSiteChrome = ({ heroTrigger }: ChromeOptions = {}) => {
       document.body.classList.remove('menu-open')
     })
   })
-
-  let scrollFrame = 0
-
-  const updateScrollEffects = () => {
-    const secondSectionReached = !heroTrigger
-      || (trigger ? trigger.getBoundingClientRect().top <= 86 : window.scrollY >= window.innerHeight)
-    header?.classList.toggle('is-scrolled', secondSectionReached)
-
-    scrollFrame = 0
-  }
-
-  const requestScrollEffects = () => {
-    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollEffects)
-  }
-
-  window.addEventListener('scroll', requestScrollEffects, { passive: true })
-  window.addEventListener('resize', requestScrollEffects, { passive: true })
-  updateScrollEffects()
 
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

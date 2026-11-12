@@ -144,11 +144,12 @@ h3 {
   right: 0;
   left: 0;
   height: 86px;
-  border-bottom: 1px solid transparent;
-  background: transparent;
+  border-bottom: 1px solid var(--clay-800);
+  background: var(--clay-900);
   transition: background 220ms cubic-bezier(0.2, 0.7, 0.3, 1), border-color 220ms ease, box-shadow 220ms cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
+/* the white header of the sub-pages; the home page keeps the dark bar above */
 .site-header.is-scrolled {
   border-color: var(--border);
   background: rgba(255, 255, 255, 0.97);
@@ -161,9 +162,8 @@ h3 {
   align-items: center;
 }
 
-/* the lockup rides straight on the page — no plaque. Over the dark hero it
-   swaps to the reversed artwork, and crossfades back to the full-colour one
-   when the header turns white on scroll */
+/* the lockup rides straight on the bar — no plaque. On the dark bar it uses
+   the reversed artwork, and the full-colour one on the white sub-page bar */
 .brand {
   position: relative;
   width: 54px;
@@ -330,8 +330,9 @@ h3 {
 .hero {
   display: flex;
   flex-direction: column;
-  color: var(--clay-100);
-  background: var(--clay-900);
+  border-bottom: 1px solid var(--border);
+  color: var(--stone-700);
+  background: var(--stone-0);
   overflow: hidden;
 }
 
@@ -353,7 +354,7 @@ h3 {
 .hero h1 {
   max-width: 12ch;
   margin-bottom: 28px;
-  color: #fff;
+  color: var(--clay-800);
   font-size: clamp(3.2rem, 5vw, 5.15rem);
   font-weight: 300;
   line-height: 1.03;
@@ -362,7 +363,7 @@ h3 {
 
 .hero-lead {
   max-width: 52ch;
-  color: var(--clay-200);
+  color: var(--stone-600);
   font-size: 1.15rem;
   font-weight: 300;
   line-height: 1.68;
@@ -397,23 +398,14 @@ h3 {
   transform: scale(0.985);
 }
 
-.button-light {
-  color: var(--clay-900);
-  background: var(--clay-300);
-  box-shadow: 0 10px 24px rgba(140, 97, 56, 0.24);
-}
-
-.button-light:hover {
-  background: var(--clay-400);
-}
-
 .button-outline {
   border-color: var(--clay-700);
-  color: var(--clay-100);
+  color: var(--clay-800);
 }
 
 .button-outline:hover {
-  border-color: var(--clay-500);
+  border-color: var(--clay-800);
+  color: #fff;
   background: var(--clay-800);
 }
 
@@ -504,8 +496,8 @@ h3 {
 }
 
 .graft-ring {
-  fill: var(--clay-900);
-  stroke: var(--clay-300);
+  fill: var(--clay-50);
+  stroke: var(--clay-500);
   stroke-width: 1.5;
 }
 
@@ -517,7 +509,7 @@ h3 {
 .graft-bond,
 .graft-orbit {
   fill: none;
-  stroke: var(--clay-300);
+  stroke: var(--clay-500);
   stroke-linecap: round;
   stroke-width: 1;
 }
@@ -533,7 +525,7 @@ h3 {
 
 .wall-surface {
   fill: none;
-  stroke: var(--clay-300);
+  stroke: var(--clay-500);
   stroke-linecap: round;
   stroke-width: 1.5;
   vector-effect: non-scaling-stroke;
@@ -548,8 +540,8 @@ h3 {
 }
 
 .cellulose-units path {
-  fill: rgba(61, 36, 16, 0.56);
-  stroke: var(--clay-400);
+  fill: var(--clay-100);
+  stroke: var(--clay-500);
   stroke-linecap: round;
   stroke-linejoin: round;
   stroke-width: 1;
@@ -563,8 +555,8 @@ h3 {
 
 .wall-crosslinks path {
   fill: none;
-  opacity: 0.3;
-  stroke: var(--clay-300);
+  opacity: 0.4;
+  stroke: var(--clay-500);
   stroke-dasharray: 2 5;
   stroke-width: 1;
 }
@@ -575,14 +567,14 @@ h3 {
 }
 
 .diagram-labels text {
-  fill: var(--clay-500);
+  fill: var(--clay-600);
   font: 8px var(--font-mono);
   letter-spacing: 0.13em;
   text-transform: uppercase;
 }
 
 .diagram-labels .label-emphasis {
-  fill: var(--clay-300);
+  fill: var(--clay-800);
 }
 
 .diagram-labels path {
@@ -2747,7 +2739,7 @@ h3 {
   }
 
   .hero-shell {
-    padding-block: 72px 62px;
+    padding-block: 112px 62px;
     gap: 52px;
   }
 
