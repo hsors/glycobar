@@ -56,6 +56,14 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <p class="eyebrow">Product &amp; pipeline</p>
             <h1 id="catalogue-heading">Commercial antigen products</h1>
           </div>
+
+          <div class="catalogue-cta">
+            <div>
+              <p class="eyebrow">Quotation</p>
+              <h3>Interested in one of these products?</h3>
+            </div>
+            <a class="button button-dark" href="mailto:contact@glycobar.com?subject=Quotation%20request">Request a quote ${arrowIcon}</a>
+          </div>
         </div>
 
         <div class="catalogue-block reveal">
@@ -104,14 +112,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </div>
 
         ${pipelineTable()}
-
-        <div class="catalogue-cta reveal">
-          <div>
-            <p class="eyebrow">Quotation</p>
-            <h3>Interested in one of these products?</h3>
-          </div>
-          <a class="button button-dark" href="mailto:contact@glycobar.com?subject=Quotation%20request">Request a quote ${arrowIcon}</a>
-        </div>
       </div>
     </section>
 

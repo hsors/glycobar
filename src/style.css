@@ -3329,6 +3329,25 @@ h3 {
   font-size: clamp(1.3rem, 1.9vw, 1.7rem);
 }
 
+/* In the page heading it sits beside the title, so it stacks in the narrow
+   right-hand column and drops the spacing meant for a full-width bar. */
+.page-heading .catalogue-cta {
+  margin-top: 0;
+  padding: clamp(20px, 2vw, 28px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  border-radius: 12px;
+}
+
+.page-heading .catalogue-cta .eyebrow {
+  margin-bottom: 10px;
+}
+
+.page-heading .catalogue-cta h3 {
+  font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+}
+
 /* Full-size structure ----------------------------------------------------- */
 
 .structure-dialog {
