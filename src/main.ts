@@ -310,15 +310,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               <svg class="tech-process-figure ligand-only-figure" viewBox="0 -16 320 138" role="img" aria-label="ABO antigen ligand without linker">
                 <g class="process-antigen" transform="translate(50 0)" aria-hidden="true">
-                  <path d="M40 60h38m44 0h38m44 0h38M100 38V23" />
+                  <path d="M40 60h47m44 0h29m44 0h38M109 38V23" />
                   <rect class="sugar-gal" x="14" y="38" width="44" height="44" rx="2" />
-                  <circle class="sugar-gal" cx="100" cy="60" r="22" />
-                  <path class="sugar-fuc" d="M100-12l21 35H79z" />
+                  <circle class="sugar-gal" cx="109" cy="60" r="22" />
+                  <path class="sugar-fuc" d="M109-12l21 35H88z" />
                   <circle class="sugar-glc" cx="182" cy="60" r="22" />
                 </g>
                 <g class="process-caption" transform="translate(50 0)" aria-hidden="true">
                   <text x="14" y="112">ABO ANTIGEN</text>
-                  <path d="M77 105h127" />
+                  <path d="M86 105h118" />
                 </g>
               </svg>
               <h3>ABO antigens</h3>
@@ -353,10 +353,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <svg class="tech-process-figure linker-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine-terminated spacer arm">
                 <g transform="translate(46 0)">
                   <g class="process-antigen" aria-hidden="true">
-                    <path d="M18 55h24m34 0h24m34 0h18M59 38V22" />
+                    <path d="M18 55h31m34 0h17m34 0h18M66 38V22" />
                     <rect class="sugar-gal" x="4" y="38" width="28" height="34" rx="2" />
-                    <circle class="sugar-gal" cx="59" cy="55" r="17" />
-                    <path class="sugar-fuc" d="M59-6l16 28H43z" />
+                    <circle class="sugar-gal" cx="66" cy="55" r="17" />
+                    <path class="sugar-fuc" d="M66-6l16 28H50z" />
                     <circle class="sugar-glc" cx="117" cy="55" r="17" />
                   </g>
                   <g class="process-addition" aria-hidden="true">
@@ -401,10 +401,10 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               </div>
               <svg class="tech-process-figure grafted-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine linker and is covalently grafted onto cellulose">
                 <g class="process-antigen" aria-hidden="true">
-                  <path d="M18 55h24m34 0h24m34 0h18M59 38V22" />
+                  <path d="M18 55h31m34 0h17m34 0h18M66 38V22" />
                   <rect class="sugar-gal" x="4" y="38" width="28" height="34" rx="2" />
-                  <circle class="sugar-gal" cx="59" cy="55" r="17" />
-                  <path class="sugar-fuc" d="M59-6l16 28H43z" />
+                  <circle class="sugar-gal" cx="66" cy="55" r="17" />
+                  <path class="sugar-fuc" d="M66-6l16 28H50z" />
                   <circle class="sugar-glc" cx="117" cy="55" r="17" />
                 </g>
                 <g class="process-addition" aria-hidden="true">
