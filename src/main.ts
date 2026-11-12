@@ -181,7 +181,7 @@ const advisors = [
   {
     name: 'Guy Rigaud',
     role: 'Supervisory Board member, Kalray',
-    bio: 'Member of the Kalray supervisory board since 2010. Associate Director at EUREKAP! from 2012 to 2025.',
+    bio: 'Founder of Rhône-Alpes Création, with 40+ years of experience in private equity. Member of the Kalray supervisory board since 2010. Associate Director at EUREKAP! from 2012 to 2025.',
     photo: guyRigaudPhoto,
   },
 ]
