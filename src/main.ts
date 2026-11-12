@@ -540,4 +540,4 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteFooter()}
 `
 
-initSiteChrome({ darkHeader: true })
+initSiteChrome()
