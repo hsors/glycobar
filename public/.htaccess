@@ -1,0 +1,45 @@
+# Apache configuration for the OVH web hosting (glycobar.com).
+# Vite copies this file to the root of dist/. It reproduces what nginx.conf does
+# on the Docker deployment: HTTPS, compression, cache rules, directory indexes.
+#
+# Enable the free SSL certificate for the domain in the OVH Manager BEFORE the
+# first upload, otherwise the HTTPS redirect below locks visitors out.
+
+DirectoryIndex index.html
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # www.glycobar.com -> glycobar.com, straight to HTTPS in one hop
+  RewriteCond %{HTTP_HOST} ^www\.glycobar\.com$ [NC]
+  RewriteRule ^ https://glycobar.com%{REQUEST_URI} [L,R=301]
+
+  # force HTTPS
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # HTML carries the hashed asset URLs: it must always revalidate, or a stale
+  # copy points at bundles that no longer exist after a deploy. The unhashed
+  # favicon / icons revalidate too.
+  <FilesMatch "\.(html|svg)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+
+  # Content-hashed files emitted by Vite (name-AbCd1234.ext): cache forever.
+  <FilesMatch "-[A-Za-z0-9_-]{8}\.(js|css|png|jpe?g|webp|svg|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>

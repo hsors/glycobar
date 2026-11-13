@@ -1,0 +1,105 @@
+name: deploy-ovh
+
+# Builds the static site and uploads dist/ to the OVH web hosting over FTP(S),
+# on every push to main.
+#
+# Repository secrets (Settings -> Secrets and variables -> Actions):
+#
+#   OVH_FTP_HOST      FTP server of the hosting, e.g. ftp.cluster0xx.hosting.ovh.net
+#   OVH_FTP_USER      FTP login
+#   OVH_FTP_PASSWORD  FTP password
+#   OVH_FTP_DIR       (optional) root folder of the site on the hosting, default "www"
+#   OVH_FTP_VERIFY_CERT  (optional) set to "no" only if the TLS certificate check
+#                        fails on the OVH FTP host
+#
+# Until the three required secrets exist the job still builds the site (so a
+# broken build is caught) and skips the upload without failing.
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# one deployment at a time: a second push waits instead of uploading in parallel
+concurrency:
+  group: deploy-ovh
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Build
+        run: |
+          npm ci
+          npm run build
+          test -f dist/index.html
+          test -f dist/.htaccess
+
+      - name: Upload to OVH
+        env:
+          FTP_HOST: ${{ secrets.OVH_FTP_HOST }}
+          FTP_USER: ${{ secrets.OVH_FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.OVH_FTP_DIR }}
+          FTP_VERIFY_CERT: ${{ secrets.OVH_FTP_VERIFY_CERT }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${FTP_HOST:-}" ] || [ -z "${FTP_USER:-}" ] || [ -z "${FTP_PASSWORD:-}" ]; then
+            echo "OVH secrets are not configured (OVH_FTP_HOST / OVH_FTP_USER / OVH_FTP_PASSWORD): upload skipped."
+            exit 0
+          fi
+
+          if ! command -v lftp >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends lftp
+          fi
+
+          REMOTE_DIR="${FTP_DIR:-www}"
+          VERIFY="${FTP_VERIFY_CERT:-yes}"
+
+          # The password never goes into this file: it is passed with -u below.
+          cat > /tmp/deploy.lftp <<EOF
+          set cmd:fail-exit yes
+          set net:max-retries 3
+          set net:timeout 30
+          set ftp:ssl-allow yes
+          set ftp:ssl-protect-data yes
+          set ssl:verify-certificate ${VERIFY}
+          cd ${REMOTE_DIR}
+
+          # 1. new hashed bundles and images first, so the pages never point at
+          #    files that are not there yet
+          mirror -R --verbose --parallel=4 dist/assets assets
+
+          # 2. the pages that reference them
+          mirror -R --verbose dist/products products
+          mirror -R --verbose dist/impact impact
+          put dist/favicon.svg -o favicon.svg
+          put dist/icons.svg -o icons.svg
+          put dist/index.html -o index.html
+          put dist/.htaccess -o .htaccess
+
+          # 3. now that the new pages are live, drop the bundles nothing uses any more
+          mirror -R --delete --verbose dist/assets assets
+          bye
+          EOF
+
+          lftp -u "${FTP_USER},${FTP_PASSWORD}" "${FTP_HOST}" -f /tmp/deploy.lftp
+          rm -f /tmp/deploy.lftp
+          echo "Deployed to ${REMOTE_DIR} on ${FTP_HOST}"

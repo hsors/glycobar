@@ -1,5 +1,9 @@
 # Deploying glycobar.ironhandscapital.com
 
+> The production copy on the OVH web hosting (glycobar.com) is described in
+> [DEPLOY-OVH.md](DEPLOY-OVH.md). The repository now lives on GitHub, so the
+> Gitea workflow below only runs if the code is pushed to the Gitea server again.
+
 Static Vite multi-page site. The build emits `dist/` (three HTML entries: `/`,
 `/products/`, `/impact/`) and nginx serves it — there is no Node runtime in
 production.
