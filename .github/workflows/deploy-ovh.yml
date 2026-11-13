@@ -82,7 +82,29 @@ jobs:
         run: |
           set -uo pipefail
 
-          REMOTE_DIR="${FTP_DIR:-www}"
+          # Secrets pasted from a web page often carry a trailing space or
+          # newline, or a "sftp://" prefix: clean the usual slips up.
+          trim() { printf '%s' "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'; }
+          FTP_HOST="$(trim "$FTP_HOST")"
+          FTP_HOST="${FTP_HOST#sftp://}"
+          FTP_HOST="${FTP_HOST#ftp://}"
+          FTP_HOST="${FTP_HOST%%/*}"
+          FTP_USER="$(trim "$FTP_USER")"
+          FTP_PASSWORD="${FTP_PASSWORD%$'\n'}"
+          FTP_PASSWORD="${FTP_PASSWORD%$'\r'}"
+          REMOTE_DIR="$(trim "${FTP_DIR:-www}")"
+          REMOTE_DIR="${REMOTE_DIR#/}"
+          REMOTE_DIR="${REMOTE_DIR%/}"
+          [ -n "$REMOTE_DIR" ] || REMOTE_DIR=www
+
+          # A host name is letters, digits, dots and dashes (and an optional :port).
+          if ! [[ "$FTP_HOST" =~ ^[A-Za-z0-9.-]+(:[0-9]+)?$ ]]; then
+            # hex codes, so an invisible character shows up (20 = space, 0d/0a = line break)
+            bad="$(printf '%s' "$FTP_HOST" | tr -d 'A-Za-z0-9.:-' | od -An -tx1 | tr -s ' \n' ' ' | cut -c1-80)"
+            echo "::error title=OVH_FTP_HOST is not a valid host name::length ${#FTP_HOST}, unexpected characters (hex):${bad:- none}. Expected something like ssh.cluster110.hosting.ovh.net (no spaces, no sftp://, no path)."
+            exit 1
+          fi
+          echo "Host name looks valid (${#FTP_HOST} characters), user length ${#FTP_USER}, remote dir '${REMOTE_DIR}'."
 
           # The password never goes into this file: it is passed with -u below.
           # The OVH host key is accepted on first contact (the runner is a fresh
