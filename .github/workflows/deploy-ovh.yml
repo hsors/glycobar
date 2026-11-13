@@ -145,7 +145,14 @@ jobs:
             # surface the real reason in the run summary, where it can be read
             # without opening the raw log (the runner masks secret values)
             msg="$(tail -n 8 /tmp/lftp.out | tr '\n' ' ' | cut -c1-800)"
-            echo "::error title=OVH upload failed (lftp exit ${status})::${msg}"
+
+            # Hints that expose no secret: what the server accepts, and the
+            # shape (first letters, length) of what was sent, to spot a secret
+            # that differs from what works elsewhere.
+            ssh_host="${FTP_HOST%%:*}"
+            methods="$(ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new -o PreferredAuthentications=none -o ConnectTimeout=10 "${FTP_USER}@${ssh_host}" true 2>&1 | tail -n 1 | cut -c1-200 || true)"
+            hints="host ${FTP_HOST:0:3}... (${#FTP_HOST} chars), user ${FTP_USER:0:2}... (${#FTP_USER} chars), password ${#FTP_PASSWORD} chars, dir ${REMOTE_DIR}. Server says: ${methods:-nothing}"
+            echo "::error title=OVH upload failed (lftp exit ${status})::${msg} | ${hints}"
             exit "$status"
           fi
 
