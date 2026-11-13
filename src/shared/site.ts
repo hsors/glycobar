@@ -1,6 +1,7 @@
 import glycobarLogo from '../assets/brand/glycobar-logo.png'
 import glycobarLogoReversed from '../assets/brand/glycobar-logo-reversed.png'
 import franceRelanceLogo from '../assets/partners/france-relance.png'
+import { initContactDialog } from './contact-dialog'
 import { arrowIcon } from './icons'
 
 export type SitePage = 'home' | 'products' | 'impact'
@@ -25,7 +26,7 @@ export const siteHeader = (page: SitePage) => `
         <a href="${homeAnchor(page, '#company')}">Company</a>
         <a href="${page === 'products' ? '#top' : '/products/'}"${page === 'products' ? ' aria-current="page"' : ''}>Product &amp; Pipeline</a>
         <a href="${page === 'impact' ? '#top' : '/impact/'}"${page === 'impact' ? ' aria-current="page"' : ''}>Our impact</a>
-        <a class="nav-contact" href="mailto:contact@glycobar.com">Contact us ${arrowIcon}</a>
+        <a class="nav-contact" href="mailto:contact@glycobar.com" data-contact-open>Contact us ${arrowIcon}</a>
       </nav>
     </div>
   </header>
@@ -40,7 +41,7 @@ export const siteContact = () => `
       </div>
       <div>
         <p>Collaborate with our scientists, request a sample or visit the production facility in Grenoble.</p>
-        <a class="button button-dark" href="mailto:contact@glycobar.com">Contact our team ${arrowIcon}</a>
+        <a class="button button-dark" href="mailto:contact@glycobar.com" data-contact-open>Contact our team ${arrowIcon}</a>
       </div>
     </div>
   </section>
@@ -78,6 +79,8 @@ export const initSiteChrome = ({ darkHeader = true }: ChromeOptions = {}) => {
 
   /* `is-scrolled` is the white header; without it the bar is the dark one. */
   header?.classList.toggle('is-scrolled', !darkHeader)
+
+  initContactDialog()
 
   menuToggle?.addEventListener('click', () => {
     const isOpen = menuToggle.getAttribute('aria-expanded') === 'true'

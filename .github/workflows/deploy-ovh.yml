@@ -126,6 +126,7 @@ jobs:
           put dist/favicon.svg -o favicon.svg
           put dist/icons.svg -o icons.svg
           put dist/index.html -o index.html
+          put dist/contact.php -o contact.php
           put dist/.htaccess -o .htaccess
 
           # 3. now that the new pages are live, drop the bundles nothing uses any more
