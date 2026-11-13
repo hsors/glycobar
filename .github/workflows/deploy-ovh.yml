@@ -49,24 +49,38 @@ jobs:
           test -f dist/index.html
           test -f dist/.htaccess
 
+      - name: Check OVH secrets
+        id: ovh
+        env:
+          FTP_HOST: ${{ secrets.OVH_FTP_HOST }}
+          FTP_USER: ${{ secrets.OVH_FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
+        run: |
+          if [ -z "${FTP_HOST:-}" ] || [ -z "${FTP_USER:-}" ] || [ -z "${FTP_PASSWORD:-}" ]; then
+            echo "OVH secrets are not configured (OVH_FTP_HOST / OVH_FTP_USER / OVH_FTP_PASSWORD): upload skipped."
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install lftp
+        if: steps.ovh.outputs.configured == 'true'
+        run: |
+          if ! command -v lftp >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends lftp
+          fi
+          lftp --version | head -n 1
+
       - name: Upload to OVH
+        if: steps.ovh.outputs.configured == 'true'
         env:
           FTP_HOST: ${{ secrets.OVH_FTP_HOST }}
           FTP_USER: ${{ secrets.OVH_FTP_USER }}
           FTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
           FTP_DIR: ${{ secrets.OVH_FTP_DIR }}
         run: |
-          set -euo pipefail
-
-          if [ -z "${FTP_HOST:-}" ] || [ -z "${FTP_USER:-}" ] || [ -z "${FTP_PASSWORD:-}" ]; then
-            echo "OVH secrets are not configured (OVH_FTP_HOST / OVH_FTP_USER / OVH_FTP_PASSWORD): upload skipped."
-            exit 0
-          fi
-
-          if ! command -v lftp >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install -y --no-install-recommends lftp
-          fi
+          set -uo pipefail
 
           REMOTE_DIR="${FTP_DIR:-www}"
 
@@ -97,6 +111,17 @@ jobs:
           bye
           EOF
 
-          lftp -u "${FTP_USER},${FTP_PASSWORD}" "sftp://${FTP_HOST}" -f /tmp/deploy.lftp
+          lftp -u "${FTP_USER},${FTP_PASSWORD}" "sftp://${FTP_HOST}" -f /tmp/deploy.lftp > /tmp/lftp.out 2>&1
+          status=$?
           rm -f /tmp/deploy.lftp
+          cat /tmp/lftp.out
+
+          if [ "$status" -ne 0 ]; then
+            # surface the real reason in the run summary, where it can be read
+            # without opening the raw log (the runner masks secret values)
+            msg="$(tail -n 8 /tmp/lftp.out | tr '\n' ' ' | cut -c1-800)"
+            echo "::error title=OVH upload failed (lftp exit ${status})::${msg}"
+            exit "$status"
+          fi
+
           echo "Deployed to ${REMOTE_DIR} on ${FTP_HOST}"
