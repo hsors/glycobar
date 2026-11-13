@@ -1,16 +1,15 @@
 name: deploy-ovh
 
-# Builds the static site and uploads dist/ to the OVH web hosting over FTP(S),
-# on every push to main.
+# Builds the static site and uploads dist/ to the OVH web hosting over SFTP
+# (SSH, port 22), on every push to main. The OVH FTP server does not offer
+# FTPS, so plain FTP is not used: it would send the password in clear text.
 #
 # Repository secrets (Settings -> Secrets and variables -> Actions):
 #
-#   OVH_FTP_HOST      FTP server of the hosting, e.g. ftp.cluster0xx.hosting.ovh.net
-#   OVH_FTP_USER      FTP login
-#   OVH_FTP_PASSWORD  FTP password
+#   OVH_FTP_HOST      SSH/SFTP server of the hosting, e.g. ssh.cluster110.hosting.ovh.net
+#   OVH_FTP_USER      FTP/SSH login (SSH access must be enabled for it in the OVH Manager)
+#   OVH_FTP_PASSWORD  its password
 #   OVH_FTP_DIR       (optional) root folder of the site on the hosting, default "www"
-#   OVH_FTP_VERIFY_CERT  (optional) set to "no" only if the TLS certificate check
-#                        fails on the OVH FTP host
 #
 # Until the three required secrets exist the job still builds the site (so a
 # broken build is caught) and skips the upload without failing.
@@ -56,7 +55,6 @@ jobs:
           FTP_USER: ${{ secrets.OVH_FTP_USER }}
           FTP_PASSWORD: ${{ secrets.OVH_FTP_PASSWORD }}
           FTP_DIR: ${{ secrets.OVH_FTP_DIR }}
-          FTP_VERIFY_CERT: ${{ secrets.OVH_FTP_VERIFY_CERT }}
         run: |
           set -euo pipefail
 
@@ -71,16 +69,15 @@ jobs:
           fi
 
           REMOTE_DIR="${FTP_DIR:-www}"
-          VERIFY="${FTP_VERIFY_CERT:-yes}"
 
           # The password never goes into this file: it is passed with -u below.
+          # The OVH host key is accepted on first contact (the runner is a fresh
+          # machine every time, so there is no known_hosts to compare with).
           cat > /tmp/deploy.lftp <<EOF
           set cmd:fail-exit yes
           set net:max-retries 3
           set net:timeout 30
-          set ftp:ssl-allow yes
-          set ftp:ssl-protect-data yes
-          set ssl:verify-certificate ${VERIFY}
+          set sftp:auto-confirm yes
           cd ${REMOTE_DIR}
 
           # 1. new hashed bundles and images first, so the pages never point at
@@ -100,6 +97,6 @@ jobs:
           bye
           EOF
 
-          lftp -u "${FTP_USER},${FTP_PASSWORD}" "${FTP_HOST}" -f /tmp/deploy.lftp
+          lftp -u "${FTP_USER},${FTP_PASSWORD}" "sftp://${FTP_HOST}" -f /tmp/deploy.lftp
           rm -f /tmp/deploy.lftp
           echo "Deployed to ${REMOTE_DIR} on ${FTP_HOST}"
