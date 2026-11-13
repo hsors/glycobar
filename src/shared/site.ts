@@ -66,12 +66,12 @@ export const siteFooter = () => `
 `
 
 type ChromeOptions = {
-  /* The home page keeps its dark-brown header bar on every scroll position.
-     Sub-pages use the white header. */
+  /* Every page uses the brown header bar by default; pass false for the
+     white one. */
   darkHeader?: boolean
 }
 
-export const initSiteChrome = ({ darkHeader = false }: ChromeOptions = {}) => {
+export const initSiteChrome = ({ darkHeader = true }: ChromeOptions = {}) => {
   const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]')
   const menu = document.querySelector<HTMLElement>('[data-menu]')
   const header = document.querySelector<HTMLElement>('[data-header]')
