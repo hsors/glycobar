@@ -26,14 +26,15 @@ Options -Indexes
   AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json image/svg+xml
 </IfModule>
 
-# A test copy (test.glycobar.com, ...) must never show up in search results
-# next to the real site.
+# Any copy served from another host name (a test site on sors.net, ...) must
+# never show up in search results next to the real site: only glycobar.com and
+# www.glycobar.com are indexable.
 <IfModule mod_setenvif.c>
-  SetEnvIfNoCase Host "^test\." noindex_host
+  SetEnvIfNoCase Host "^(www\.)?glycobar\.com(:[0-9]+)?$" production_host
 </IfModule>
 
 <IfModule mod_headers.c>
-  Header always set X-Robots-Tag "noindex, nofollow" env=noindex_host
+  Header always set X-Robots-Tag "noindex, nofollow" env=!production_host
 
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set X-Content-Type-Options "nosniff"
