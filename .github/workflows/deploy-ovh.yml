@@ -111,8 +111,10 @@ jobs:
           bye
           EOF
 
-          lftp -u "${FTP_USER},${FTP_PASSWORD}" "sftp://${FTP_HOST}" -f /tmp/deploy.lftp > /tmp/lftp.out 2>&1
-          status=$?
+          # GitHub runs this script with "bash -e": a failing lftp must not stop
+          # it before the reason is printed, hence the "|| status=$?".
+          status=0
+          lftp -u "${FTP_USER},${FTP_PASSWORD}" "sftp://${FTP_HOST}" -f /tmp/deploy.lftp > /tmp/lftp.out 2>&1 || status=$?
           rm -f /tmp/deploy.lftp
           cat /tmp/lftp.out
 
