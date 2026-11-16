@@ -1,6 +1,8 @@
 <?php
 // Receives the "Contact" dialog of the site and mails it to contact@glycobar.com.
 // Runs on the OVH web hosting (PHP + mail()); it answers with a small JSON body.
+// Written for PHP 5.4, the version this hosting runs: no ?? operator or other
+// syntax from newer releases.
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
@@ -14,7 +16,7 @@ function reply($status, $ok, $error = null)
     exit;
 }
 
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+if ((isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '') !== 'POST') {
     header('Allow: POST');
     reply(405, false, 'Method not allowed.');
 }
@@ -30,22 +32,28 @@ function one_line($value)
     return trim(preg_replace('/[\r\n\t]+/', ' ', (string) $value));
 }
 
-$name = one_line($_POST['name'] ?? '');
-$email = one_line($_POST['email'] ?? '');
-$message = trim((string) ($_POST['message'] ?? ''));
+// mbstring is normally there; fall back to plain strlen if it is not.
+function text_length($value)
+{
+    return function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
+}
 
-if ($name === '' || mb_strlen($name) > 100) {
+$name = one_line(isset($_POST['name']) ? $_POST['name'] : '');
+$email = one_line(isset($_POST['email']) ? $_POST['email'] : '');
+$message = trim(isset($_POST['message']) ? (string) $_POST['message'] : '');
+
+if ($name === '' || text_length($name) > 100) {
     reply(422, false, 'Please enter your name.');
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($email) > 150) {
     reply(422, false, 'Please enter a valid email address.');
 }
-if (mb_strlen($message) < 5 || mb_strlen($message) > 5000) {
+if (text_length($message) < 5 || text_length($message) > 5000) {
     reply(422, false, 'Please write a message (5 to 5000 characters).');
 }
 
 // One message per visitor every 30 seconds.
-$ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+$ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'unknown';
 $stamp = rtrim(sys_get_temp_dir(), '/') . '/glycobar_contact_' . md5($ip);
 if (is_file($stamp) && time() - (int) filemtime($stamp) < 30) {
     reply(429, false, 'Please wait a moment before sending another message.');
@@ -54,7 +62,7 @@ if (is_file($stamp) && time() - (int) filemtime($stamp) < 30) {
 
 // The sender must belong to the site's own domain (glycobar.com, or the test
 // domain), or the hosting refuses the mail. The visitor goes in Reply-To.
-$host = strtolower(preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? 'glycobar.com'));
+$host = strtolower(preg_replace('/:\d+$/', '', isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'glycobar.com'));
 $host = preg_replace('/^(www|test)\./', '', $host);
 if (!preg_match('/^[a-z0-9.-]+$/', $host)) {
     $host = 'glycobar.com';
