@@ -77,7 +77,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
         </div>
 
         <div class="catalogue-block catalogue-block-more reveal">
-          <p class="eyebrow">Also available</p>
+          <p class="eyebrow">Also available on demand</p>
           <h2>Other blood group antigen sugars</h2>
         </div>
 
