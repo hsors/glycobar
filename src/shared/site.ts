@@ -4,7 +4,7 @@ import franceRelanceLogo from '../assets/partners/france-relance.png'
 import { initContactDialog } from './contact-dialog'
 import { arrowIcon } from './icons'
 
-export type SitePage = 'home' | 'products' | 'impact'
+export type SitePage = 'home' | 'products' | 'impact' | 'legals'
 
 /* Anchors that live on the home page need an absolute path once the header is
    rendered on a sub-page. */
@@ -61,7 +61,7 @@ export const siteFooter = () => `
         <span class="support-copy">With the support of</span>
         <img src="${franceRelanceLogo}" alt="France Relance" />
       </div>
-      <p class="copyright">© ${new Date().getFullYear()} GlycoBAR</p>
+      <p class="copyright">© ${new Date().getFullYear()} GlycoBAR · <a href="/legals/">Legals</a></p>
     </div>
   </footer>
 `

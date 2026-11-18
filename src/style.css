@@ -3522,3 +3522,69 @@ h3 {
 .products-page .catalogue-block-more {
   margin-top: clamp(36px, 5vh, 56px);
 }
+
+/* ---- Legals page ---- */
+.legals {
+  border-top: 1px solid var(--border);
+  background: var(--clay-50);
+}
+
+.legals > .section-shell {
+  padding-block: var(--section-y);
+}
+
+.legal-text {
+  max-width: 860px;
+}
+
+.legal-section + .legal-section {
+  margin-top: clamp(36px, 5vh, 56px);
+}
+
+.legal-section h2 {
+  margin-bottom: 18px;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+}
+
+.legal-section h2 span {
+  margin-right: 8px;
+  color: var(--clay-500);
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  letter-spacing: 0.06em;
+}
+
+.legal-section h3 {
+  margin: 26px 0 8px;
+  color: var(--clay-700);
+  font: 600 0.78rem/1.4 var(--font-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.legal-section p,
+.legal-section li {
+  color: var(--stone-600);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.legal-section p + p,
+.legal-section p + ul,
+.legal-section ul + p {
+  margin-top: 12px;
+}
+
+.legal-section ul {
+  margin: 12px 0 0;
+  padding-left: 22px;
+}
+
+.legal-section li + li {
+  margin-top: 6px;
+}
+
+.legal-section a {
+  color: var(--clay-700);
+  text-underline-offset: 3px;
+}

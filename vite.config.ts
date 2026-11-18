@@ -10,6 +10,7 @@ export default defineConfig({
         home: resolve(import.meta.dirname, 'index.html'),
         products: resolve(import.meta.dirname, 'products/index.html'),
         impact: resolve(import.meta.dirname, 'impact/index.html'),
+        legals: resolve(import.meta.dirname, 'legals/index.html'),
       },
     },
   },

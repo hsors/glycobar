@@ -133,6 +133,7 @@ jobs:
           # 2. the pages that reference them
           mirror -R --verbose dist/products products
           mirror -R --verbose dist/impact impact
+          mirror -R --verbose dist/legals legals
           put dist/favicon.svg -o favicon.svg
           put dist/icons.svg -o icons.svg
           put dist/index.html -o index.html
