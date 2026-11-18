@@ -21,8 +21,8 @@ import { initSiteChrome, siteContact, siteFooter, siteHeader } from './shared/si
 
 const antiAGlycan = `
   <svg class="glycan-figure" viewBox="0 0 640 360" role="img" aria-labelledby="glycan-title glycan-desc">
-    <title id="glycan-title">Glycan ligand covalently grafted onto cellulose</title>
-    <desc id="glycan-desc">An elegant molecular abstraction showing the supplied ABO glycan ligand on the left, a short covalent linker and a compact cellulose wall on the right.</desc>
+    <title id="glycan-title">Glycan ligand covalently grafted onto a support</title>
+    <desc id="glycan-desc">An elegant molecular abstraction showing the supplied ABO glycan ligand on the left, a short covalent linker and a compact support surface on the right, cellulosic or not.</desc>
 
     <defs>
       <linearGradient id="ligand-stroke" x1="20" y1="0" x2="425" y2="0" gradientUnits="userSpaceOnUse">
@@ -113,7 +113,7 @@ const antiAGlycan = `
     <g class="diagram-labels" aria-hidden="true">
       <text x="72" y="244">ABO GLYCAN LIGAND</text>
       <text class="label-emphasis" x="377" y="229">COVALENT GRAFT</text>
-      <text x="496" y="337">CELLULOSE SUPPORT</text>
+      <text x="496" y="337">SOLID SUPPORT</text>
       <path d="M114 231v-18M430 216v-15M544 324v-18" />
     </g>
   </svg>
@@ -224,7 +224,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           </div>
         </div>
 
-        <div class="hero-science reveal" aria-label="ABO glycan ligand covalently grafted onto a cellulose wall">
+        <div class="hero-science reveal" aria-label="ABO glycan ligand covalently grafted onto a support">
           ${antiAGlycan}
         </div>
       </div>
@@ -237,7 +237,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
           <p class="eyebrow">Born at the CNRS &middot; Seventeen years of research</p>
           <h2>French expertise in glycan and cellulose binding, turned into competitive ligands</h2>
           <p class="manifesto-lead">Our technology comes out of CNRS laboratories, where seventeen years of research on bacterial glycan synthesis and cellulose-binding chemistry were carried out before being transferred to industrial scale.</p>
-          <p>Our multidisciplinary team connects bacterial biofermentation, glycan chemistry and grafting onto cellulose and other supports in one integrated platform. The result: consistent performance, industrial quantities and economics designed for broad access.</p>
+          <p>Our multidisciplinary team connects bacterial biofermentation, glycan chemistry and grafting onto cellulosic and non-cellulosic supports in one integrated platform. The result: consistent performance, industrial quantities and economics designed for broad access.</p>
         </div>
         <div class="manifesto-stat reveal">
           <strong>17</strong>
@@ -399,7 +399,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <p class="eyebrow">The connection</p>
                 </div>
               </div>
-              <svg class="tech-process-figure grafted-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine linker and is covalently grafted onto cellulose">
+              <svg class="tech-process-figure grafted-figure" viewBox="0 -16 320 138" role="img" aria-label="The ABO antigen receives an amine linker and is covalently grafted onto a cellulosic or non-cellulosic support">
                 <g class="process-antigen" aria-hidden="true">
                   <path d="M18 55h31m34 0h17m34 0h18M66 38V22" />
                   <rect class="sugar-gal" x="4" y="38" width="28" height="34" rx="2" />
@@ -421,15 +421,15 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <circle cx="266" cy="75" r="7" /><circle cx="293" cy="75" r="7" />
                 </g>
                 <g class="process-caption" aria-hidden="true">
-                  <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text><text x="249" y="114">CELLULOSE</text>
+                  <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text><text x="249" y="114">SUPPORT</text>
                 </g>
               </svg>
               <h3>Grafting onto supports</h3>
-              <p>We covalently anchor the functionalised ligand onto cellulose, or onto other supports such as chromatography resins.</p>
+              <p>We covalently anchor the functionalised ligand onto cellulosic or non-cellulosic supports, such as chromatography resins.</p>
               <dl class="tech-specs">
                 <div><dt>Addition</dt><dd>Amine-terminated arm</dd></div>
                 <div><dt>Bond</dt><dd>Covalent grafting</dd></div>
-                <div><dt>Support</dt><dd>Cellulose, chromatography resins</dd></div>
+                <div><dt>Support</dt><dd>Cellulosic or non-cellulosic, chromatography resins</dd></div>
               </dl>
               <div class="card-mark">
                 <svg class="card-mark-seal patent-seal" viewBox="0 0 64 64" role="img" aria-label="Patented technology">
