@@ -3675,8 +3675,8 @@ h3 {
 }
 
 /* Home page: same tightening as the Product & pipeline page. Sections follow
-   each other on content height with a smaller vertical padding, the hero
-   included. */
+   each other on content height with a smaller vertical padding; the hero
+   keeps its full-screen height. */
 .home {
   --section-y: clamp(36px, 4.5vh, 48px);
 }
@@ -3686,9 +3686,9 @@ h3 {
   min-height: 0;
 }
 
-.home .hero-shell {
-  min-height: 0;
-  padding-block: clamp(124px, 13vh, 148px) clamp(36px, 4.5vh, 48px);
+/* the opening screen stays a full screen: only the hero shows on arrival */
+.home .hero {
+  min-height: 100svh;
 }
 
 .home .proof-band > .section-shell {
