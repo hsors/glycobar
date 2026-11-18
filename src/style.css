@@ -3673,3 +3673,28 @@ h3 {
   font-size: 0.72rem;
   line-height: 1.4;
 }
+
+/* Home page: same tightening as the Product & pipeline page. Sections follow
+   each other on content height with a smaller vertical padding, the hero
+   included. */
+.home {
+  --section-y: clamp(36px, 4.5vh, 48px);
+}
+
+.home .page-panel,
+.home .manifesto-grid {
+  min-height: 0;
+}
+
+.home .hero-shell {
+  min-height: 0;
+  padding-block: clamp(124px, 13vh, 148px) clamp(36px, 4.5vh, 48px);
+}
+
+.home .proof-band > .section-shell {
+  padding-block: var(--section-y);
+}
+
+.home .team > .section-shell {
+  padding-block: var(--section-y);
+}

@@ -211,7 +211,7 @@ const advisorCards = memberCards(advisors)
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('home')}
 
-  <main id="top">
+  <main class="home" id="top">
     <section class="hero page-panel">
       <div class="hero-shell">
         <div class="hero-copy reveal">
