@@ -41,6 +41,11 @@ function text_length($value)
 $name = one_line(isset($_POST['name']) ? $_POST['name'] : '');
 $email = one_line(isset($_POST['email']) ? $_POST['email'] : '');
 $message = trim(isset($_POST['message']) ? (string) $_POST['message'] : '');
+// Optional topic set by the page (e.g. "Quotation request"): short, one line.
+$topic = one_line(isset($_POST['topic']) ? $_POST['topic'] : '');
+if (text_length($topic) > 60) {
+    $topic = '';
+}
 
 if ($name === '' || text_length($name) > 100) {
     reply(422, false, 'Please enter your name.');
@@ -68,8 +73,9 @@ if (!preg_match('/^[a-z0-9.-]+$/', $host)) {
     $host = 'glycobar.com';
 }
 
-$subject = '=?UTF-8?B?' . base64_encode('[Website] Message from ' . $name) . '?=';
-$body = "Name: $name\r\nEmail: $email\r\n\r\n$message\r\n";
+$subjectText = $topic !== '' ? '[Website] ' . $topic . ' from ' . $name : '[Website] Message from ' . $name;
+$subject = '=?UTF-8?B?' . base64_encode($subjectText) . '?=';
+$body = ($topic !== '' ? "Topic: $topic\r\n" : '') . "Name: $name\r\nEmail: $email\r\n\r\n$message\r\n";
 $headers = implode("\r\n", array(
     'From: GlycoBAR website <website@' . $host . '>',
     'Reply-To: ' . $email,

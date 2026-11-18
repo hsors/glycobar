@@ -14,9 +14,9 @@ const markup = `
       <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" /></svg>
     </button>
 
-    <p class="eyebrow">Contact</p>
-    <h2 id="contact-dialog-title">Send us a message</h2>
-    <p class="contact-dialog-lead">Collaboration, sample request or visit: we answer within a few working days.</p>
+    <p class="eyebrow" data-contact-eyebrow>Contact</p>
+    <h2 id="contact-dialog-title" data-contact-title>Send us a message</h2>
+    <p class="contact-dialog-lead" data-contact-lead>Collaboration, sample request or visit: we answer within a few working days.</p>
 
     <form class="contact-form" method="post" action="${ENDPOINT}" novalidate>
       <label>
@@ -29,8 +29,9 @@ const markup = `
       </label>
       <label>
         <span>Message</span>
-        <textarea name="message" rows="6" maxlength="5000" required></textarea>
+        <textarea name="message" rows="6" maxlength="5000" required data-contact-message></textarea>
       </label>
+      <input type="hidden" name="topic" value="" data-contact-topic-field />
       <!-- honeypot: invisible to people, filled in by bots -->
       <label class="contact-hp" aria-hidden="true">
         <span>Website</span>
@@ -41,7 +42,7 @@ const markup = `
 
       <div class="contact-actions">
         <button class="button button-dark" type="submit" data-contact-submit>Send message</button>
-        <a class="contact-direct" href="mailto:${CONTACT_EMAIL}">or write to ${CONTACT_EMAIL}</a>
+        <a class="contact-direct" href="mailto:${CONTACT_EMAIL}" data-contact-direct>or write to ${CONTACT_EMAIL}</a>
       </div>
     </form>
   </dialog>
@@ -60,7 +61,38 @@ export const initContactDialog = () => {
     status.dataset.kind = kind
   }
 
-  const open = () => {
+  const eyebrow = dialog.querySelector<HTMLElement>('[data-contact-eyebrow]')!
+  const title = dialog.querySelector<HTMLElement>('[data-contact-title]')!
+  const lead = dialog.querySelector<HTMLElement>('[data-contact-lead]')!
+  const topicField = dialog.querySelector<HTMLInputElement>('[data-contact-topic-field]')!
+  const message = dialog.querySelector<HTMLTextAreaElement>('[data-contact-message]')!
+  const direct = dialog.querySelector<HTMLAnchorElement>('[data-contact-direct]')!
+
+  /* The dialog serves two entry points: the general contact links, and the
+     "Request a quote" button of the products page, which sets a topic. */
+  const texts = {
+    default: {
+      eyebrow: eyebrow.textContent!,
+      title: title.textContent!,
+      lead: lead.textContent!,
+      placeholder: '',
+    },
+    quote: {
+      eyebrow: 'Quotation',
+      title: 'Request a quote',
+      lead: 'Tell us which product, quantity and delivery date you need: we will send you a quotation.',
+      placeholder: 'Product (e.g. BAR-4A-S-NH2), quantity, delivery date, quality documents needed…',
+    },
+  }
+
+  const open = (topic = '') => {
+    const t = topic ? texts.quote : texts.default
+    eyebrow.textContent = t.eyebrow
+    title.textContent = t.title
+    lead.textContent = t.lead
+    message.placeholder = t.placeholder
+    topicField.value = topic
+    direct.href = `mailto:${CONTACT_EMAIL}${topic ? `?subject=${encodeURIComponent(topic)}` : ''}`
     setStatus('')
     dialog.showModal()
     dialog.querySelector<HTMLInputElement>('input[name="name"]')?.focus()
@@ -73,7 +105,7 @@ export const initContactDialog = () => {
       document.querySelector('[data-menu].is-open')?.classList.remove('is-open')
       document.querySelector('[data-menu-toggle]')?.setAttribute('aria-expanded', 'false')
       document.body.classList.remove('menu-open')
-      open()
+      open(link.dataset.contactTopic)
     })
   })
 

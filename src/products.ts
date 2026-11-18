@@ -80,7 +80,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <p class="eyebrow">Quotation</p>
               <h3>Interested in one of these products?</h3>
             </div>
-            <a class="button button-dark" href="mailto:contact@glycobar.com?subject=Quotation%20request">Request a quote ${arrowIcon}</a>
+            <a class="button button-dark" href="mailto:contact@glycobar.com?subject=Quotation%20request" data-contact-open data-contact-topic="Quotation request">Request a quote ${arrowIcon}</a>
           </div>
         </div>
 
