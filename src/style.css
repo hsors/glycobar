@@ -3507,3 +3507,18 @@ h3 {
   color: var(--clay-700);
   font-size: 0.85rem;
 }
+
+/* Product & pipeline page: the three sections follow each other on content
+   height instead of each filling a whole screen, with tighter padding between
+   them (the home page keeps its full-screen panels). */
+.products-page {
+  --section-y: clamp(36px, 4.5vh, 48px);
+}
+
+.products-page .page-panel {
+  min-height: 0;
+}
+
+.products-page .catalogue-block-more {
+  margin-top: clamp(36px, 5vh, 56px);
+}

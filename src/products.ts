@@ -48,7 +48,7 @@ const catalogueCard = (item: CatalogueItem, featured = false) => `
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   ${siteHeader('products')}
 
-  <main class="subpage-main" id="top">
+  <main class="subpage-main products-page" id="top">
     <section class="catalogue page-panel" data-catalogue aria-labelledby="catalogue-heading">
       <div class="section-shell">
         <div class="section-heading page-heading reveal">
