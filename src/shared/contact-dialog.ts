@@ -29,7 +29,7 @@ const markup = `
       </label>
       <label>
         <span>Message</span>
-        <textarea name="message" rows="6" maxlength="5000" required data-contact-message></textarea>
+        <textarea name="message" rows="6" minlength="5" maxlength="5000" required data-contact-message></textarea>
       </label>
       <input type="hidden" name="topic" value="" data-contact-topic-field />
       <!-- honeypot: invisible to people, filled in by bots -->
@@ -124,6 +124,13 @@ export const initContactDialog = () => {
       return
     }
 
+    /* the server trims the message and wants at least 5 characters */
+    if (message.value.trim().length < 5) {
+      setStatus('Please write a message (at least 5 characters).', 'error')
+      message.focus()
+      return
+    }
+
     submit.disabled = true
     setStatus('Sending…')
 
@@ -132,14 +139,19 @@ export const initContactDialog = () => {
       const result = (await response.json()) as { ok?: boolean; error?: string }
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.error || 'The message could not be sent.')
+        /* a 4xx answer is the server explaining what to fix in the form (too
+           short, bad address, too fast): show it as is */
+        const failure = new Error(result.error || 'The message could not be sent.') as Error & { fixable?: boolean }
+        failure.fixable = response.status >= 400 && response.status < 500
+        throw failure
       }
 
       form.reset()
       setStatus('Thank you — your message has been sent. We will get back to you shortly.', 'ok')
     } catch (error) {
       const reason = error instanceof SyntaxError ? 'The message could not be sent.' : (error as Error).message
-      setStatus(`${reason} Please write to ${CONTACT_EMAIL} instead.`, 'error')
+      const fixable = (error as { fixable?: boolean }).fixable === true
+      setStatus(fixable ? reason : `${reason} Please write to ${CONTACT_EMAIL} instead.`, 'error')
     } finally {
       submit.disabled = false
     }
