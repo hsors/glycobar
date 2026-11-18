@@ -1,3 +1,30 @@
+/* Fonts are served from this site (npm @fontsource packages), not from
+   Google: no third-party request is made when a page loads. */
+@import '@fontsource/jost/latin-300.css';
+@import '@fontsource/jost/latin-ext-300.css';
+@import '@fontsource/jost/latin-400.css';
+@import '@fontsource/jost/latin-ext-400.css';
+@import '@fontsource/jost/latin-500.css';
+@import '@fontsource/jost/latin-ext-500.css';
+@import '@fontsource/jost/latin-600.css';
+@import '@fontsource/jost/latin-ext-600.css';
+@import '@fontsource/ibm-plex-sans/latin-300.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-300.css';
+@import '@fontsource/ibm-plex-sans/greek-300.css';
+@import '@fontsource/ibm-plex-sans/latin-400.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-400.css';
+@import '@fontsource/ibm-plex-sans/greek-400.css';
+@import '@fontsource/ibm-plex-sans/latin-500.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-500.css';
+@import '@fontsource/ibm-plex-sans/greek-500.css';
+@import '@fontsource/ibm-plex-sans/latin-600.css';
+@import '@fontsource/ibm-plex-sans/latin-ext-600.css';
+@import '@fontsource/ibm-plex-sans/greek-600.css';
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-ext-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import '@fontsource/ibm-plex-mono/latin-ext-500.css';
+
 :root {
   --clay-50: #faf6f1;
   --clay-100: #f2e9df;

@@ -90,7 +90,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
           <section class="legal-section">
             <h2><span>06 |</span> Cookies</h2>
-            <p>This website does not set any cookie on your device and does not use any audience measurement, advertising or social network tracker. No consent banner is therefore needed.</p>
+            <p>This website does not set any cookie on your device and does not use any audience measurement, advertising or social network tracker. The fonts are served from this website itself: no request is sent to third-party servers when you visit it. No consent banner is therefore needed.</p>
           </section>
         </div>
       </div>
