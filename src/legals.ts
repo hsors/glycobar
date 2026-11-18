@@ -24,6 +24,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
             <h2><span>01 |</span> Publisher and hosting</h2>
             <p>This website is published by GlycoBAR SAS, a French simplified joint-stock company (société par actions simplifiée) with a share capital of €421,038, registered with the Grenoble Trade and Companies Register (RCS Grenoble) under number 813 495 207.</p>
             <p>Registered office: Espace Colombiers, 19 rue Casimir Julhiet, 38420 Domène, France. Contact: <a href="mailto:contact@glycobar.com">contact@glycobar.com</a>.</p>
+            <p>Director of publication: the legal representative of GlycoBAR SAS.</p>
             <p>The website is hosted by OVH SAS, 2 rue Kellermann, 59100 Roubaix, France.</p>
           </section>
 
