@@ -111,10 +111,10 @@ const antiAGlycan = `
     </g>
 
     <g class="diagram-labels" aria-hidden="true">
-      <text x="72" y="244">ABO GLYCAN LIGAND</text>
+      <text x="231" y="244" text-anchor="middle">ABO GLYCAN LIGAND</text>
       <text class="label-emphasis" x="377" y="229">COVALENT GRAFT</text>
-      <text x="496" y="337">SOLID SUPPORT</text>
-      <path d="M114 231v-18M430 216v-15M544 324v-18" />
+      <text x="544" y="337" text-anchor="middle">SOLID SUPPORT</text>
+      <path d="M64 212v8h334v-8M231 220v12M430 216v-15M544 324v-18" />
     </g>
   </svg>
 `
@@ -317,8 +317,8 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <circle class="sugar-glc" cx="182" cy="60" r="22" />
                 </g>
                 <g class="process-caption" transform="translate(50 0)" aria-hidden="true">
-                  <text x="14" y="112">ABO ANTIGEN</text>
-                  <path d="M86 105h118" />
+                  <text x="109" y="112" text-anchor="middle">ABO ANTIGEN</text>
+                  <path d="M14 105h190" />
                 </g>
               </svg>
               <h3>ABO antigens</h3>
@@ -366,7 +366,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                     <path d="M211 55h8m-4-4v8" />
                   </g>
                   <g class="process-caption" aria-hidden="true">
-                    <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text>
+                    <text x="69" y="114" text-anchor="middle">ANTIGEN</text><text class="process-caption-added" x="178.5" y="114" text-anchor="middle">+ LINKER</text>
                   </g>
                 </g>
               </svg>
@@ -421,7 +421,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                   <circle cx="266" cy="75" r="7" /><circle cx="293" cy="75" r="7" />
                 </g>
                 <g class="process-caption" aria-hidden="true">
-                  <text x="4" y="114">ANTIGEN</text><text class="process-caption-added" x="146" y="114">+ LINKER</text><text x="249" y="114">SUPPORT</text>
+                  <text x="69" y="114" text-anchor="middle">ANTIGEN</text><text class="process-caption-added" x="178.5" y="114" text-anchor="middle">+ LINKER</text><text x="280" y="114" text-anchor="middle">SUPPORT</text>
                 </g>
               </svg>
               <h3>Grafting onto supports</h3>
