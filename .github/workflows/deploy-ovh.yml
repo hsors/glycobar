@@ -126,6 +126,8 @@ jobs:
           mirror -R --verbose dist/legals legals
           mirror -R --verbose dist/docs docs
           put dist/favicon.svg -o favicon.svg
+          put dist/favicon.ico -o favicon.ico
+          put dist/apple-touch-icon.png -o apple-touch-icon.png
           put dist/icons.svg -o icons.svg
           put dist/index.html -o index.html
           put dist/contact.php -o contact.php
