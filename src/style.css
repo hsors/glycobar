@@ -1177,40 +1177,6 @@ h3 {
   stroke-linejoin: round;
 }
 
-.quality-seal-ring {
-  fill: none;
-  stroke: var(--clay-400);
-  stroke-width: 1.4;
-}
-
-.quality-seal-ring-inner {
-  stroke: var(--clay-200);
-  stroke-width: 1;
-}
-
-.quality-seal text {
-  fill: var(--clay-700);
-  text-anchor: middle;
-}
-
-.quality-seal-top {
-  font: 0.62rem/1 var(--font-mono);
-  letter-spacing: 0.22em;
-  transform: translateX(1.5px);
-}
-
-.quality-seal-main {
-  font: 500 1.05rem/1 var(--font-display);
-  letter-spacing: 0.04em;
-}
-
-.quality-seal-rule {
-  fill: none;
-  stroke: var(--clay-300);
-  stroke-width: 1.2;
-  stroke-linecap: round;
-}
-
 .industrial-card {
   grid-column: 1 / -1;
   display: grid;

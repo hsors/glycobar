@@ -482,20 +482,6 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
                 <div><dt>Capacity</dt><dd>Multi-kg per year</dd></div>
                 <div><dt>Quality</dt><dd>ISO 9001 quality system</dd></div>
               </dl>
-              <div class="card-mark">
-                <svg class="card-mark-seal quality-seal" viewBox="0 0 64 64" role="img" aria-label="ISO 9001 certified">
-                  <circle class="quality-seal-ring" cx="32" cy="32" r="30" />
-                  <circle class="quality-seal-ring quality-seal-ring-inner" cx="32" cy="32" r="25.5" />
-                  <text class="quality-seal-top" x="32" y="27">ISO</text>
-                  <text class="quality-seal-main" x="32" y="43">9001</text>
-                  <path class="quality-seal-rule" d="M22 48.5h20" />
-                </svg>
-                <div class="card-mark-copy">
-                  <span class="card-mark-head">Certified</span>
-                  <strong class="card-mark-title">ISO 9001:2015</strong>
-                  <span class="card-mark-note">Quality management system</span>
-                </div>
-              </div>
             </div>
             <figure class="tech-photo">
               <img src="${plantExterior}" alt="GlycoBAR production facility in Grenoble, France" />
