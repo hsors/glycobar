@@ -480,6 +480,7 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
               <dl class="tech-specs">
                 <div><dt>Facility</dt><dd>450 m² Grenoble (France)</dd></div>
                 <div><dt>Capacity</dt><dd>Multi-kg per year</dd></div>
+                <div><dt>Quality</dt><dd>ISO 9001 quality system</dd></div>
               </dl>
             </div>
             <figure class="tech-photo">
