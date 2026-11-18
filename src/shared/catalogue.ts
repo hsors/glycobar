@@ -6,6 +6,33 @@ import aHexaoseStructure from '../assets/products/a-hexaose.png'
 import bHexaoseStructure from '../assets/products/b-hexaose.png'
 import { FUC, GAL, GALNAC_A, GAL_B, GLC, GLCNAC, type Glycan } from './glycan'
 
+export type CatalogueDocument = {
+  label: string
+  note: string
+  href: string
+}
+
+/* Technical documents of a product: the standard datasheet, the one with the
+   extended quality control some customers require, and the safety data sheet.
+   The PDF files live in public/docs. */
+const documentsFor = (code: 'BAR-4A-S-NH2' | 'BAR-4B-S-NH2'): CatalogueDocument[] => [
+  {
+    label: 'Product datasheet',
+    note: 'Standard · v2025-04-03',
+    href: `/docs/pds/PDS-${code}-standard-v20250403.pdf`,
+  },
+  {
+    label: 'Product datasheet, extended QC',
+    note: 'Adds bioburden, proteins, DNA, endotoxins · v2024-07-22',
+    href: `/docs/pds/PDS-${code}-extended-qc-v20240722.pdf`,
+  },
+  {
+    label: 'Safety data sheet (MSDS)',
+    note: 'EU format · rev. 2024-09-17',
+    href: `/docs/msds/MSDS-${code}.pdf`,
+  },
+]
+
 export type CatalogueItem = {
   id: string
   group: 'A' | 'B'
@@ -16,6 +43,7 @@ export type CatalogueItem = {
   termination: string
   glycan: Glycan
   structure: string
+  documents?: CatalogueDocument[]
 }
 
 /* The A and B families are identical apart from the terminal residue, so both
@@ -53,6 +81,7 @@ export const coreProducts: CatalogueItem[] = [
     termination: 'Amine + linker arm',
     glycan: tetraose('A'),
     structure: aTetraoseStructure,
+    documents: documentsFor('BAR-4A-S-NH2'),
   },
   {
     id: 'b-tetraose',
@@ -64,6 +93,7 @@ export const coreProducts: CatalogueItem[] = [
     termination: 'Amine + linker arm',
     glycan: tetraose('B'),
     structure: bTetraoseStructure,
+    documents: documentsFor('BAR-4B-S-NH2'),
   },
 ]
 

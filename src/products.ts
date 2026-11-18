@@ -5,6 +5,23 @@ import { glycanSymbols } from './shared/glycan'
 import { applicationGrid, pipelineTable } from './shared/pipeline'
 import { initSiteChrome, siteContact, siteFooter, siteHeader } from './shared/site'
 
+const pdfIcon = `<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 2.5h7l3.5 3.5v11.5h-10.5z M12 2.5V6h3.5 M8 10.5h4 M8 13.5h4" /></svg>`
+
+/* PDF links of a product (datasheets, safety data sheet), when it has any. */
+const documentList = (item: CatalogueItem) =>
+  item.documents
+    ? `<div class="catalogue-docs">
+      <p class="catalogue-docs-title">Documents</p>
+      <ul>
+        ${item.documents
+          .map(
+            (doc) => `<li><a href="${doc.href}" target="_blank" rel="noopener">${pdfIcon}<span>${doc.label}<small>${doc.note}</small></span></a></li>`,
+          )
+          .join('')}
+      </ul>
+    </div>`
+    : ''
+
 /* Each card holds both representations and its own stage decides which one is
    painted, so a reader can put two drawings of different kinds side by side. */
 const catalogueCard = (item: CatalogueItem, featured = false) => `
@@ -42,6 +59,7 @@ const catalogueCard = (item: CatalogueItem, featured = false) => `
       <div><dt>Termination</dt><dd>${item.termination}</dd></div>
       <div><dt>Supply</dt><dd>Any quantity</dd></div>
     </dl>
+    ${documentList(item)}
   </article>
 `
 

@@ -134,6 +134,7 @@ jobs:
           mirror -R --verbose dist/products products
           mirror -R --verbose dist/impact impact
           mirror -R --verbose dist/legals legals
+          mirror -R --verbose dist/docs docs
           put dist/favicon.svg -o favicon.svg
           put dist/icons.svg -o icons.svg
           put dist/index.html -o index.html

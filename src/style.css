@@ -3588,3 +3588,61 @@ h3 {
   color: var(--clay-700);
   text-underline-offset: 3px;
 }
+
+/* ---- Product documents (datasheets, safety data sheet) ---- */
+.catalogue-docs {
+  margin-top: 18px;
+}
+
+.catalogue-docs-title {
+  margin-bottom: 8px;
+  color: var(--stone-400);
+  font: 0.6rem/1.4 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.catalogue-docs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogue-docs li + li {
+  margin-top: 4px;
+}
+
+.catalogue-docs a {
+  padding: 6px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--clay-800);
+  font-size: 0.88rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.catalogue-docs a:hover span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.catalogue-docs svg {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  fill: none;
+  stroke: var(--clay-600);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.catalogue-docs small {
+  display: block;
+  color: var(--stone-500);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
