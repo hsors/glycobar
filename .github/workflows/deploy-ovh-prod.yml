@@ -21,7 +21,11 @@ on:
     inputs:
       confirm:
         description: 'Type glycobar.com to publish the site in production'
-        required: true
+        required: false
+      check_only:
+        description: 'Only test the connection and list the target folder (nothing is uploaded)'
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -34,7 +38,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.confirm == 'glycobar.com' }}
+    if: ${{ github.event.inputs.confirm == 'glycobar.com' || github.event.inputs.check_only == 'true' }}
 
     steps:
       - name: Checkout
@@ -83,6 +87,7 @@ jobs:
           FTP_USER: ${{ secrets.OVH_PROD_FTP_USER }}
           FTP_PASSWORD: ${{ secrets.OVH_PROD_FTP_PASSWORD }}
           FTP_DIR: ${{ secrets.OVH_PROD_FTP_DIR }}
+          CHECK_ONLY: ${{ github.event.inputs.check_only }}
         run: |
           set -uo pipefail
 
@@ -109,6 +114,18 @@ jobs:
             exit 1
           fi
           echo "Host name looks valid (${#FTP_HOST} characters), user length ${#FTP_USER}, remote dir '${REMOTE_DIR}'."
+
+          # Check-only mode: log in, list the target folder, upload nothing.
+          if [ "${CHECK_ONLY:-false}" = "true" ]; then
+            echo "CHECK ONLY: connecting to ${FTP_HOST} as a ${#FTP_USER}-character login, folder '${REMOTE_DIR}'. Nothing will be uploaded."
+            if lftp -u "${FTP_USER},${FTP_PASSWORD}" -e "set sftp:auto-confirm yes; set net:max-retries 2; set cmd:fail-exit yes; cd ${REMOTE_DIR}; echo LOGIN_OK; cls -1 | head -n 40; bye" "sftp://${FTP_HOST}"; then
+              echo "Connection and folder OK."
+            else
+              echo "::error title=Check failed::login or folder '${REMOTE_DIR}' refused by the server."
+              exit 1
+            fi
+            exit 0
+          fi
           # Refuse to publish over a live WordPress: its files must be moved out first.
           wp="$(lftp -u "${FTP_USER},${FTP_PASSWORD}" -e "set sftp:auto-confirm yes; set net:max-retries 2; cd ${REMOTE_DIR} && cls -1 wp-config.php; bye" "sftp://${FTP_HOST}" 2>/dev/null || true)"
           if printf '%s' "$wp" | grep -q 'wp-config.php'; then
